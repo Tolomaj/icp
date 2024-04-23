@@ -57,10 +57,15 @@ public slots:
     void remove_entry(int id){
         for (size_t i = 0; i < entryes->layout()->count(); i++){
             QWidget *widget = entryes->layout()->itemAt(i)->widget();
-            if(((Entry * )widget)->get_id() == id){
+            if(id == REMOVE_ALL){
+                entryes->layout()->removeWidget(widget);
+                delete widget;
+                i--;
+            }else if(((Entry * )widget)->get_id() == id){
                 entryes->layout()->removeWidget(widget);
                 delete widget;
                 return;
+                i--;
             }
         }
     }
@@ -74,8 +79,6 @@ public:
         this->setMaximumSize(QSize(250, 16777215));
         this->setMinimumSize(QSize(200, 0));
         this->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-        //this->setBackgroundRole(QPalette::Window);
-        //this->setFrameShadow(QFrame::Plain);
         this->setWidgetResizable(true);
 
         entryes = new QWidget;
@@ -104,15 +107,6 @@ public:
         entryes->layout()->addWidget(new AI_Entry(parent,9));
         entryes->layout()->addWidget(new AI_Entry(parent,10));
 
-
-
         }
-
-
-/*//todo
-    add (BOT/HUMAN/OBSTICLE,ID)
-    remove (ID)
-*/
-
 
 };

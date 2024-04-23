@@ -21,6 +21,8 @@
 
 #pragma once
 
+//todo přidat přepínání a měnení tlařítek na základě state robota
+
 class BOT_Entry :public Entry{ 
 Q_OBJECT
 
@@ -62,8 +64,6 @@ public:
         rightButton->setToolTip(QString("turn robot right"));
         layout->addWidget(rightButton);
         connect(rightButton, SIGNAL(clicked()), this,SLOT(rightButton_f()));
-
-
     }
 
 };

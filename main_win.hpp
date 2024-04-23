@@ -77,11 +77,9 @@ public slots:
     }
     void stepButton_f(){
         Mediator::get_instance().notify_simulation_controll(STEP);
-        Mediator::get_instance().notify_states_change(9,COLIDED);
     }
     void runButton_f(){
         Mediator::get_instance().notify_simulation_controll(RUN);
-        Mediator::get_instance().notify_forvarded_registartion(AI_ROBOT,5); // dbg
     }
 public: 
     MainWindows(QMainWindow *parent = 0):QMainWindow(parent) {

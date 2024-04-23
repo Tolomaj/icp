@@ -19,6 +19,9 @@
 
 #pragma once
 
+
+#define REMOVE_ALL -1
+
 enum FileOP{
     SAVE,
     LOAD
@@ -70,7 +73,7 @@ public:
 
     // registrace robotů a objektů (přijímáno v seznamu, datech a scéně)
     void subscribe_registartion(QObject* subscriber, const char* slot);      // funkce co spracuje požadavek na registraci robota
-    void subscribe_unregistration(QObject* subscriber, const char* slot);    // unkce které mají zničit objěkt
+    void subscribe_unregistration(QObject* subscriber, const char* slot);    // unkce které mají zničit objěkt (-1 je vymazání všeho)
     void subscribe_forvarded_registartion(QObject* subscriber, const char* slot); // přidání robota do všechy ui (přijímáno gui)
 
     //změny stavů robotů je odebírano (bot_entry a [asi]Auto_bot_entry )

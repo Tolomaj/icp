@@ -58,7 +58,6 @@ public:
         layout->addWidget(entry_name);
 
         this->setFrameStyle(QFrame::Panel | QFrame::Raised);
-
         
     }
 
