@@ -1,0 +1,22 @@
+GUI ------------> SIMULATION
+    send ADD (BOT /OBSTICLE)
+    send DELETE (BOT/OBSTICLE)
+    
+    send RUN SIMULATION
+    send STEP SIMULATION
+    send STOP SIMULATION
+
+    send LOAD
+    send SAVE
+
+
+GUI <------------ SIMULATION
+    send REGISTER (BOT/OBSTICLE)
+    send UNREGISTER (BOT/OBSTICLE)
+    send BOT STATE
+    send MOVE BOT
+
+
+
+//todo
+označování entries
