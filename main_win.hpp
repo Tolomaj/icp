@@ -187,7 +187,7 @@ public:
         scene = new Scene(this);
         graphicsView->setScene(scene);
         graphicsView->setRenderHint(QPainter::Antialiasing);
-        graphicsView->setBackgroundBrush(QPixmap("bkgrnd.jpg"));
+        graphicsView->setBackgroundBrush(QPixmap("img/bkgrnd.jpg"));
         
 
         this->show();

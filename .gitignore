@@ -1,2 +1,5 @@
 moc_*
 main
+*.o
+poznamky.txt
+.qmake.stash

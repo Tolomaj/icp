@@ -47,7 +47,7 @@ public:
         layout->setContentsMargins(2, 2, 2, 2);
 
         QPushButton * delButton = new QPushButton(parent);
-        delButton->setIcon(QIcon("icons/wbasket.png"));
+        delButton->setIcon(QIcon("img/wbasket.png"));
         delButton->setFixedSize(QSize(24, 24));
         delButton->setToolTip(QString("Remove object from scene"));
         layout->addWidget(delButton);

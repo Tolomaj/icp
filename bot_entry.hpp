@@ -43,27 +43,27 @@ public:
         entry_name->setText("Bot[" + QString::number(object_id) +"]");
 
         QPushButton * leftButton = new QPushButton(parent);
-        leftButton->setIcon(QIcon("icons/rleft.png"));
+        leftButton->setIcon(QIcon("img/rleft.png"));
         leftButton->setFixedSize(QSize(24, 24));
         leftButton->setToolTip(QString("turn robot left"));
         layout->addWidget(leftButton);
         connect(leftButton, SIGNAL(clicked()), this,SLOT(leftButton_f()));
 
         QPushButton * goButton = new QPushButton(parent);
-        goButton->setIcon(QIcon("icons/go.png"));
+        goButton->setIcon(QIcon("img/go.png"));
         goButton->setFixedSize(QSize(24, 24));
         goButton->setToolTip(QString("go with robot"));
         layout->addWidget(goButton);
         connect(goButton, SIGNAL(clicked()), this,SLOT(goButton_f()));
 
         QPushButton * rightButton = new QPushButton(parent);
-        rightButton->setIcon(QIcon("icons/rright.png"));
+        rightButton->setIcon(QIcon("img/rright.png"));
         rightButton->setFixedSize(QSize(24, 24));
         rightButton->setToolTip(QString("turn robot right"));
         layout->addWidget(rightButton);
         connect(rightButton, SIGNAL(clicked()), this,SLOT(rightButton_f()));
 
-        
+
     }
 
 };
