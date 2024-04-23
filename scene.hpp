@@ -35,7 +35,7 @@ public:
         this->setSceneRect(0, 0, 1000, 1000);
         this->setItemIndexMethod(QGraphicsScene::NoIndex);
         
-        QGraphicsPixmapItem* botIMG = new QGraphicsPixmapItem(QPixmap("bot.png"));
+        QGraphicsPixmapItem* botIMG = new QGraphicsPixmapItem(QPixmap("img/bot.png"));
         botIMG->setTransformOriginPoint(5, 5);
         botIMG->setRotation(50);
         this->addItem(botIMG);

@@ -3,3 +3,4 @@ main
 *.o
 poznamky.txt
 .qmake.stash
+Makefile
