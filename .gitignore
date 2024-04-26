@@ -4,3 +4,5 @@ main
 poznamky.txt
 .qmake.stash
 Makefile
+.vscode
+.vscode/*

@@ -23,8 +23,9 @@ HEADERS += gui/ai_entry.hpp
 HEADERS += gui/scene_entity.hpp
 HEADERS += gui/movable_entity.hpp
 HEADERS += gui/signed_texture.hpp
-HEADERS += gui/qt_libs.h
+HEADERS += gui/libs.h
 
+#SOURCES += gui/main_win.cpp
 SOURCES += gui/scene.cpp
 
 
