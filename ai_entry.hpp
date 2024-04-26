@@ -28,8 +28,7 @@ QLabel * stateLabel;
 
 protected slots:
     void setState(int i ,RoboState state){
-        if(i != object_id){ return; };
-        qDebug("state");
+        if(i != object_id){ return; }; // reagujeme na zmenu stavu jen objektu stejného id
         
         switch (state) {
             case STOPED:
@@ -57,7 +56,7 @@ public:
         layout->addSpacerItem(new QSpacerItem(1,1, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
         stateLabel = new QLabel;
-        stateLabel->setText("[STATE]");
+        stateLabel->setText("[UNKNOWN]");
         stateLabel->setMargin(5);
         layout->addWidget(stateLabel);
         

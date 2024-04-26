@@ -18,6 +18,7 @@
 #include <QGraphicsPixmapItem>
 #include <QString>
 #include <QRadioButton>
+#include <QBitmap>
 
 #include "mediator.hpp"
 #include "scene.hpp"
@@ -26,10 +27,8 @@
 class MainWindows:public QMainWindow{ 
 Q_OBJECT
 
-public:
-    QGraphicsScene *scene; //??
-
 private:
+    Scene *scene;
 
     QWidget *centralWidget;
     QGraphicsView *graphicsView;
@@ -81,6 +80,26 @@ public slots:
     void runButton_f(){
         Mediator::get_instance().notify_simulation_controll(RUN);
     }
+  
+    void dropdown(QString string){
+        if(string == QLatin1String("BOT")){
+            scene->setClickAction(AI_BOT_PICKING);
+        }else
+        if(string == QLatin1String("HUMAN_BOT")){
+            scene->setClickAction(MAN_BOT_PICKING);
+        }else
+        if(string == QLatin1String("BOX")){
+            scene->setClickAction(BOX_PICKING);
+        }else
+        if(string == QLatin1String("DELETE")){
+            scene->setClickAction(DELETING);
+        }else
+        if(string == QLatin1String("SELECT")){
+            scene->setClickAction(SELECTING);
+        }else{
+            qDebug("error state not picking option");
+        }
+    }
 public: 
     MainWindows(QMainWindow *parent = 0):QMainWindow(parent) {
 
@@ -93,8 +112,18 @@ public:
         QHBoxLayout * horizontalLayout = new QHBoxLayout(centralWidget);
         QVBoxLayout * verticalLayout_2 = new QVBoxLayout();
 
+        scene = new Scene(this);
+
         graphicsView = new QGraphicsView(centralWidget);
-        graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::PointingHandCursor)));
+        graphicsView->viewport()->setCursor(Qt::BlankCursor);
+        graphicsView->setMouseTracking(true);
+        //graphicsView->setAcceptHoverEvents(true);
+        graphicsView->setScene(scene);
+        graphicsView->setRenderHint(QPainter::Antialiasing);
+        graphicsView->setBackgroundBrush(QPixmap("img/floor.jpg"));
+
+
+
         verticalLayout_2->addWidget(graphicsView);
 
         QHBoxLayout * horizontalLayout_3 = new QHBoxLayout();
@@ -150,12 +179,7 @@ public:
 
         QScrollArea* techScroll = new List(verticalWidget_2);
 
-
-
-
-
-
-
+  
 
         verticalLayout->addWidget(techScroll);
 
@@ -168,12 +192,14 @@ public:
 
 
         comboBox = new QComboBox(verticalWidget_2);
+        comboBox->addItem(QString("SELECT"));
         comboBox->addItem(QString("BOT"));
         comboBox->addItem(QString("HUMAN_BOT"));
         comboBox->addItem(QString("BOX"));
         comboBox->addItem(QString("DELETE"));
-        comboBox->addItem(QString("SELECT"));
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
+        connect(comboBox,SIGNAL(currentIndexChanged(const QString&)),this,SLOT(dropdown(const QString)));
+
+
 
 
         horizontalLayout_2->addWidget(comboBox);
@@ -181,11 +207,6 @@ public:
         horizontalLayout->addWidget(verticalWidget_2);
 
         this->setCentralWidget(centralWidget);
-
-        scene = new Scene(this);
-        graphicsView->setScene(scene);
-        graphicsView->setRenderHint(QPainter::Antialiasing);
-        graphicsView->setBackgroundBrush(QPixmap("img/bkgrnd.jpg"));
         
 
         this->show();
@@ -198,7 +219,7 @@ public:
 
     void resizeEvent(QResizeEvent* event){
         
-        graphicsView->fitInView(scene->sceneRect(),Qt::KeepAspectRatio);
+       graphicsView->fitInView(scene->sceneRect(),Qt::KeepAspectRatio);
         
     }
 

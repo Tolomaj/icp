@@ -1,3 +1,7 @@
+/*
+/   Objekt který když je stvořený naslouchá všemu co se odehrává mezi gui a simualcí
+*/
+
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
@@ -135,11 +139,11 @@ Test_Probe():QObject(){
 //
 
 
-    Mediator::get_instance().subscribe_bot_controll(this, SLOT(tstControll(int, ControllComand))); //Mediator::get_instance().notify_bot_controll(5 , FORWARD);
-    Mediator::get_instance().subscribe_registartion(this, SLOT(tstregistration(ObjectType))); //Mediator::get_instance().notify_registartion(BOX);
-    Mediator::get_instance().subscribe_forvarded_registartion(this, SLOT(tstFWregistration(ObjectType,int))); //Mediator::get_instance().notify_forvarded_registartion(AI_ROBOT,5);
-    Mediator::get_instance().subscribe_states_changes(this, SLOT(tstState(int,RoboState))); //Mediator::get_instance().notify_states_change(5,COLIDED);
-    Mediator::get_instance().subscribe_move(this, SLOT(tstMove(int,int,int,int))); //Mediator::get_instance().notify_move(1,52,15,12);
+    Mediator::get_instance().subscribe_bot_controll(this, SLOT(tstControll(int, ControllComand)));
+    Mediator::get_instance().subscribe_registartion(this, SLOT(tstregistration(ObjectType))); 
+    Mediator::get_instance().subscribe_forvarded_registartion(this, SLOT(tstFWregistration(ObjectType,int))); 
+    Mediator::get_instance().subscribe_states_changes(this, SLOT(tstState(int,RoboState))); 
+    Mediator::get_instance().subscribe_move(this, SLOT(tstMove(int,int,int,int))); 
     Mediator::get_instance().subscribe_unregistration(this, SLOT(tstRemove(int)));
     Mediator::get_instance().subscribe_simulation_controll(this, SLOT(tstSimControll(SimuControll)));
     Mediator::get_instance().subscribe_load_save(this, SLOT(tstFiles(FileOP,QString)));

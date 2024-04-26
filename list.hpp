@@ -38,7 +38,7 @@ private:
     Mediator mediator;
 
 public slots:
-    void add_entry(ObjectType type, int i){
+    void add_entry(ObjectType type, int i, int x, int y, int r){
         qDebug("entry entering from widget");
        
         switch (type) {
@@ -52,22 +52,6 @@ public slots:
                 entryes->layout()->addWidget(new Entry(parent,i));
                 break;
         } 
-    }
-
-    void remove_entry(int id){
-        for (size_t i = 0; i < entryes->layout()->count(); i++){
-            QWidget *widget = entryes->layout()->itemAt(i)->widget();
-            if(id == REMOVE_ALL){
-                entryes->layout()->removeWidget(widget);
-                delete widget;
-                i--;
-            }else if(((Entry * )widget)->get_id() == id){
-                entryes->layout()->removeWidget(widget);
-                delete widget;
-                return;
-                i--;
-            }
-        }
     }
 
 
@@ -92,20 +76,8 @@ public:
         this->setWidget(entryes);
 
 
-        Mediator::get_instance().subscribe_forvarded_registartion(this, SLOT(add_entry(ObjectType, int)));
-        Mediator::get_instance().subscribe_unregistration(this, SLOT(remove_entry(int)));
-
-        entryes->layout()->addWidget(new Entry(parent,1));
-        entryes->layout()->addWidget(new Entry(parent,2));
-        entryes->layout()->addWidget(new Entry(parent,3));
-        entryes->layout()->addWidget(new Entry(parent,4));
-        entryes->layout()->addWidget(new BOT_Entry(parent,5));
-        entryes->layout()->addWidget(new Entry(parent,6));
-        entryes->layout()->addWidget(new Entry(parent,7));
-        entryes->layout()->addWidget(new Entry(parent,8));
-
-        entryes->layout()->addWidget(new AI_Entry(parent,9));
-        entryes->layout()->addWidget(new AI_Entry(parent,10));
+        Mediator::get_instance().subscribe_forvarded_registartion(this, SLOT(add_entry(ObjectType, int, int, int , int)));
+    
 
         }
 

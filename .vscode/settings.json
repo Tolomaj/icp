@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "type_traits": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "utility": "cpp",
+        "xutility": "cpp"
     }
 }

@@ -35,11 +35,13 @@ protected slots:
         Mediator::get_instance().notify_unregistration(object_id);
     }
 
-public: 
-
-    int get_id(){
-        return object_id;
+    void remove_entry(int id){
+        if(id != object_id && id != ALL){ return;};// call is not for ass
+        delete this;
     }
+
+
+public: 
 
     Entry(QWidget *parent = 0,int object_id = 0):QFrame(parent) {
         this->object_id = object_id;
@@ -59,6 +61,7 @@ public:
 
         this->setFrameStyle(QFrame::Panel | QFrame::Raised);
         
+        Mediator::get_instance().subscribe_unregistration(this, SLOT(remove_entry(int)));
     }
 
 };

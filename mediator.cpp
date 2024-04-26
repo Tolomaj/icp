@@ -8,7 +8,7 @@ Mediator &Mediator::get_instance() {
 }
 
 void Mediator::subscribe_registartion(QObject* subscriber, const char* slot){
-    connect(this, SIGNAL(notify_registartion(ObjectType)), subscriber, slot);
+    connect(this, SIGNAL(notify_registartion(ObjectType,int , int , int)), subscriber, slot);
 }
 
 void Mediator::subscribe_load_save(QObject* subscriber, const char* slot){
@@ -21,7 +21,7 @@ void Mediator::subscribe_unregistration(QObject* subscriber, const char* slot){
 }
 
 void Mediator::subscribe_forvarded_registartion(QObject* subscriber, const char* slot){
-    connect(this, SIGNAL(notify_forvarded_registartion(ObjectType , int )), subscriber, slot);
+    connect(this, SIGNAL(notify_forvarded_registartion(ObjectType , int ,int , int , int )), subscriber, slot);
 }
 
 void Mediator::subscribe_states_changes(QObject* subscriber, const char* slot){
