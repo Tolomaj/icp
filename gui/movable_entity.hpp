@@ -1,25 +1,6 @@
-#include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QGraphicsView>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QWidget>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QGraphicsPixmapItem>
-#include <QString>
+#include "libs.h"
 
 #include "scene_entity.hpp"
-#include "mediator.hpp"
-#include "simu_info.hpp"
 
 #pragma once
 

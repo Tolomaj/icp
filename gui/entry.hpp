@@ -1,23 +1,4 @@
-#include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QGraphicsView>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QWidget>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QGraphicsPixmapItem>
-#include <QString>
-
-#include "mediator.hpp"
+#include "libs.h"
 
 #pragma once
 
@@ -42,6 +23,19 @@ protected slots:
 
 
 public: 
+
+    int get_id(){
+        return object_id;
+    }
+
+    void select(){
+        this->setFrameStyle(QFrame::Panel | QFrame::Raised);
+    }
+
+    void unselect(){
+        this->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+    }
+
 
     Entry(QWidget *parent = 0,int object_id = 0):QFrame(parent) {
         this->object_id = object_id;

@@ -1,10 +1,10 @@
 #include <QtWidgets>
 #include <QFileDialog>
 #include <QString>
-#include "main_win.hpp"
 
-#include "Testing_object.h" //dbg
-#include "simulation.hpp"
+#include "gui/main_win.hpp"
+#include "link/Testing_object.h"//dbg
+#include "sim/simulation.hpp"
 
 
 

@@ -1,23 +1,44 @@
+# obecná konfigurace
 QT += widgets
-
-HEADERS += main_win.hpp
-HEADERS += scene.hpp
-HEADERS += list.hpp
-HEADERS += entry.hpp
-HEADERS += bot_entry.hpp
-HEADERS += ai_entry.hpp
-HEADERS += Testing_object.h
-HEADERS += scene_entity.hpp
-HEADERS += simulation.hpp
-HEADERS += movable_entity.hpp
-HEADERS += sim_data.hpp
-
-HEADERS += mediator.hpp
-
 
 CONFIG += c++17
 SOURCES = main.cpp
-SOURCES += mediator.cpp
+
+
+
+# objekt propojující gui i simulaci
+HEADERS += link/mediator.hpp
+HEADERS += link/Testing_object.h
+
+SOURCES += link/mediator.cpp
+
+
+# závislosti gui
+HEADERS += gui/main_win.hpp
+HEADERS += gui/scene.hpp
+HEADERS += gui/list.hpp
+HEADERS += gui/entry.hpp
+HEADERS += gui/bot_entry.hpp
+HEADERS += gui/ai_entry.hpp
+HEADERS += gui/scene_entity.hpp
+HEADERS += gui/movable_entity.hpp
+HEADERS += gui/signed_texture.hpp
+HEADERS += gui/qt_libs.h
+
+SOURCES += gui/scene.cpp
+
+
+# závislosti simulace
+HEADERS += sim/sim_data.hpp
+HEADERS += sim/simulation.hpp
+
+
+
+
+
+
+
+
 
 
 

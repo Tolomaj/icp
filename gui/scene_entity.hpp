@@ -1,32 +1,16 @@
-#include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QGraphicsView>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QWidget>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QGraphicsPixmapItem>
-#include <QString>
+#include "libs.h"
 
-#include "simu_info.hpp"
-#include "mediator.hpp"
+#include "signed_texture.hpp"
 
 #pragma once
+
+
 
 
 class SceneEntity : public QObject {
 Q_OBJECT
 protected:
-    QGraphicsPixmapItem* texture = nullptr;
+    SignedTexture* texture = nullptr;
     int object_id = 0;
 
 private slots:
@@ -45,8 +29,7 @@ public:
     SceneEntity(QGraphicsScene * scene,int id, int x, int y, int rotation = 0, char * texture_img = "img/box.png", int size = BOX_SIZE) : QObject(){
 
         this->object_id = id;
-        texture = new QGraphicsPixmapItem(QPixmap(texture_img).scaled(QSize(size, size)));
-        //texture->setTransformOriginPoint(size/2, size/2);
+        texture = new SignedTexture(id,QPixmap(texture_img).scaled(QSize(size, size)));;
         texture->setOffset(-size/2,-size/2);
         
         texture->setPos(x,y);

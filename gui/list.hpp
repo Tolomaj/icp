@@ -1,25 +1,6 @@
-#include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QGraphicsView>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QStatusBar> 
-#include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QWidget>
-#include <QtGlobal>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QGraphicsPixmapItem>
-#include <QString>
-#include <QRadioButton>
+#include "libs.h"
 
-#include "mediator.hpp"
+#include "../link/mediator.hpp"
 #include "entry.hpp"
 #include "bot_entry.hpp"
 #include "ai_entry.hpp"
@@ -56,8 +37,24 @@ public slots:
 
 
 public: 
-    List(QWidget *parent = 0):QScrollArea(parent) {
 
+    void select(int id){
+        for (size_t i = 0; i < entryes->layout()->count(); i++)
+        {
+            QWidget *pttr = entryes->layout()->itemAt(i)->widget();
+
+            Entry * entry = dynamic_cast<Entry*>(pttr);
+            if(entry == nullptr || entry == NULL){ return; }
+
+            if(entry->get_id() == id){
+                entry->select();
+            }else{
+                entry->unselect();
+            }
+        } 
+    }
+
+    List(QWidget *parent = 0):QScrollArea(parent) {
         this->parent = parent;
 
         this->setMaximumSize(QSize(250, 16777215));
@@ -79,6 +76,6 @@ public:
         Mediator::get_instance().subscribe_forvarded_registartion(this, SLOT(add_entry(ObjectType, int, int, int , int)));
     
 
-        }
+    }
 
 };

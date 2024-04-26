@@ -18,7 +18,7 @@
 #include <QString>
 #include <QTimer>
 
-#include "mediator.hpp"
+#include "../link/mediator.hpp"
 
 #pragma once
 

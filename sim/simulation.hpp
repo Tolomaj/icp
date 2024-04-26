@@ -18,9 +18,11 @@
 #include <QString>
 #include <QTimer>
 
-#include "simu_info.hpp"
+#include "../link/simu_info.hpp"
+#include "../link/mediator.hpp"
+
 #include "sim_data.hpp"
-#include "mediator.hpp"
+
 
 #pragma once
 
