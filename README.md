@@ -40,6 +40,9 @@ Data jsou ukládána ve formátu:
 Kde X a Y jsou souřadnice a R je rotace. 
 //?** TODO not done yet ?**//
 
+## Komunikace mediatorem
+
+
 
 ## Popis souborů
 

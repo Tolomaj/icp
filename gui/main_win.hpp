@@ -36,8 +36,6 @@ public slots:
     void runButton_f();
   
     void dropdown(QString string);
-    
-    //void select_Object(int id);
 
 public: 
 

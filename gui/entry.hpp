@@ -12,10 +12,6 @@ protected:
     int object_id = 0;
     bool selected = false;
 
-    void keyReleaseEvent(QKeyEvent *ev){
-        qDebug("You Release Key ");
-    }
-
 protected slots:
 
     void removeButton_f(){

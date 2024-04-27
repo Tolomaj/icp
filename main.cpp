@@ -11,13 +11,10 @@
 int main(int argc, char *argv[])
 {
    QApplication app(argc, argv);
-   GUI_Window window;
 
+   new GUI_Window(); // objekt který se stará o gui
    new Test_Probe(); // tento objekt monitoruje eventy střídané mezi GUI a simulace
-
-
    new Simulation();
-
 
 
    return app.exec();

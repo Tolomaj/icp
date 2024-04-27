@@ -46,20 +46,11 @@ void GUI_Window::dropdown(QString string){
     }else if(string == QLatin1String("DELETE")){
         scene->setClickAction(DELETING);
 
-    }else if(string == QLatin1String("SELECT")){
-        scene->setClickAction(SELECTING);
-
     }else{
-        qDebug("error state not picking option");
+        scene->setClickAction(SELECTING);
     }
 }
-/*
-fixme
-void GUI_Window::select_Object(int id){
-    scene->select(id);
-    list->select(id);
-}
-*/
+
 GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
 
     //set title

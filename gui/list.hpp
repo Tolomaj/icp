@@ -26,12 +26,8 @@ public slots:
     void add_entry(ObjectType type, int i, int x, int y, int r){
 
         // protože jde o signál jsou zde naví parametry
-        UNUSED(x);
-        UNUSED(y);
-        UNUSED(r);
+        UNUSED(x); UNUSED(y); UNUSED(r);
 
-        qDebug("entry entering from widget");
-       
         switch (type) {
             case AI_ROBOT:
                 entryes->layout()->addWidget(new AI_Entry(parent,i));
