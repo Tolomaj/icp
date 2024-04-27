@@ -1,7 +1,6 @@
 #include "scene.hpp"
 
 
-
 void Scene::setClickAction(PickingCursor cursor){
     pickmode = cursor;
     if(!cursor_hiden){
@@ -48,6 +47,22 @@ void Scene::create_entyty(ObjectType type,int id, int x , int y , int rotation){
     }        
 }
 
+void Scene::DBG_draw_line(int x1, int y1, int x2,int y2, QColor color){ //dbg
+
+    if(x1 == 0 && y1 == 0 && x2 == 0 && y2 == 0){
+        for (auto p : lines) {
+            delete p;
+        } 
+        lines.clear();
+    }else{
+        QPen onepen(color);
+        onepen.setWidth(3);
+        lines.push_back(this->addLine(x1, y1, x2, y2, onepen));
+    }
+
+    this->update();
+};
+
 Scene::Scene(QWidget *parent):QGraphicsScene(parent) {
     this->parent = parent;
 
@@ -74,7 +89,9 @@ Scene::Scene(QWidget *parent):QGraphicsScene(parent) {
 
     installEventFilter(this);
 
+
     Mediator::get_instance().subscribe_forvarded_registartion(this, SLOT(create_entyty(ObjectType, int, int, int , int)));
+    Mediator::get_instance().subscribe_DBG_draw_line(this, SLOT(DBG_draw_line(int, int, int, int, QColor))); //dbg
 }
 
 
@@ -86,13 +103,16 @@ void Scene::mouseMoveEvent(QGraphicsSceneMouseEvent *e) {
 }
 
 void Scene::mousePressEvent(QGraphicsSceneMouseEvent * e)  {
-    const QPointF p = e->scenePos();
+    QPointF p = e->scenePos();
+
+    // kontrola jestli je v aréně
+    if(p.x() < 0){ p.setX(0); }
+    if(p.y() < 0){ p.setY(0); }
+    if(p.x() > ARENA_SIZE_X){ p.setX(ARENA_SIZE_X); }
+    if(p.y() > ARENA_SIZE_Y){ p.setY(ARENA_SIZE_Y); }
+
     SignedTexture *texture_reference;
     QGraphicsItem * pttr;
-
-    qDebug((QString("click recorded ") + QString::number( p.x())  + QString(" ") +  QString::number( p.y())).toStdString().c_str());
-
-    std::string s = "";
 
     switch (pickmode){
         case BOX_PICKING:
@@ -124,7 +144,6 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent * e)  {
                 }
                 FocusColector::get_instance().focus_object(texture_reference->get_id());
             }
-            qDebug((QString("obj id ") + QString::number( texture_reference->get_id() )).toStdString().c_str());
                 
         break;
     } 

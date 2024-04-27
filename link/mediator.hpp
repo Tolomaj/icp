@@ -1,9 +1,12 @@
 #include <QObject>
+#include <QColor>
 
 #pragma once
 
 
 #define ALL -1
+
+#define CLEAR_LINES 0,0,0,0,Qt::blue
 
 enum FileOP{
     SAVE,
@@ -74,6 +77,8 @@ public:
     // načtení nebo ukládíní simulace do souboru odebíráno v data
     void subscribe_load_save(QObject* subscriber, const char* slot);
 
+    void subscribe_DBG_draw_line(QObject* subscriber, const char* slot);
+
 signals:
    // registrace robota, ovládáno z gui (pozadavek na vytvoření robota a přižazení id)
     void notify_registartion(ObjectType type,int x , int y , int rotation);
@@ -95,5 +100,8 @@ signals:
 
     // ovládání z ui pro naštení nebo uložení soubou
     void notify_send_save(FileOP file_operation,QString path);
+
+    // ovládání z ui pro naštení nebo uložení soubou
+    void notify_DBG_draw_line(int x1, int y1, int x2,int y2,QColor color);
 
 };

@@ -39,3 +39,7 @@ void Mediator::subscribe_simulation_controll(QObject* subscriber, const char* sl
 void Mediator::subscribe_bot_controll(QObject* subscriber, const char* slot){
     connect(this, SIGNAL(notify_bot_controll(int , ControllComand)), subscriber, slot);
 }
+
+void Mediator::subscribe_DBG_draw_line(QObject* subscriber, const char* slot){
+    connect(this, SIGNAL(notify_DBG_draw_line(int , int , int ,int ,QColor)), subscriber, slot);
+};
