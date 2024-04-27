@@ -17,6 +17,7 @@ private:
     Scene * scene;
     List * list;
 
+    QComboBox *comboBox ;
     QGraphicsView *graphicsView;
     PropertyPicker * propertyPicker;
     QVBoxLayout * rightSide; 
@@ -24,7 +25,13 @@ public:
 
     virtual ~GUI_Window() {}; // https://stackoverflow.com/questions/14010922/qt-undefined-reference-to-vtable
 
+protected slots:
+    // když je něco vybráno zruší se vkládání
+    void select(int i);
+
 public slots:
+        
+
 
     void open_file();
 

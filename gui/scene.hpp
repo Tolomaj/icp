@@ -3,8 +3,10 @@
 
 #include "libs.h"
 
+#include "property_picker.hpp"
 #include "movable_entity.hpp"
 #include "scene_entity.hpp"
+#include "focus_colector.hpp"
 
 #include <vector> 
 using namespace std; 
@@ -25,6 +27,8 @@ Q_OBJECT
     virtual ~Scene() {}; // https://stackoverflow.com/questions/14010922/qt-undefined-reference-to-vtable
 
 private:
+    PropertyPicker *picker;
+
     QWidget *parent;
 
     PickingCursor pickmode = SELECTING; // drží hodnotu co se má provédst po kliknutí
@@ -56,6 +60,7 @@ private:
 
 public slots:
 
+
     // přidání vykreslovací linky do scéne (všechny koorináty na nule vymazají aktuálně vykreslené linky)
     void DBG_draw_line(int x1, int y1, int x2,int y2,QColor color);
 
@@ -65,7 +70,7 @@ public slots:
    
 public:
 
-    Scene(QWidget * parent );
+    Scene(QWidget * parent ,PropertyPicker * picker);
 
     // nastaví co se stane po kliknutí myší
     void setClickAction(PickingCursor cursor);

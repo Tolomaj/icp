@@ -33,25 +33,33 @@ void GUI_Window::runButton_f(){
     Mediator::get_instance().notify_simulation_controll(RUN);
 }
   
+void GUI_Window::select(int id){
+    scene->setClickAction(SELECTING);
+    propertyPicker->hide(); 
+    comboBox->setCurrentIndex(0);
+}
+
 void GUI_Window::dropdown(QString string){
     if(string == QLatin1String("BOT")){
         scene->setClickAction(AI_BOT_PICKING);
+        propertyPicker->setFullMode(true);
         propertyPicker->show();
-        return;
 
     }else if(string == QLatin1String("HUMAN_BOT")){
         scene->setClickAction(MAN_BOT_PICKING);
-
+        propertyPicker->setFullMode(false);
+        propertyPicker->show();
     }else if(string == QLatin1String("BOX")){
         scene->setClickAction(BOX_PICKING);
-        
+        propertyPicker->setFullMode(false);
+        propertyPicker->show();    
     }else if(string == QLatin1String("DELETE")){
         scene->setClickAction(DELETING);
-
+        propertyPicker->hide();
     }else{
         scene->setClickAction(SELECTING);
-    }
-    propertyPicker->hide();
+        propertyPicker->hide();
+    }  
 }
 
 GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
@@ -65,7 +73,10 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
     QHBoxLayout * horizontalLayout = new QHBoxLayout(centralWidget);
     QVBoxLayout * verticalLayout_2 = new QVBoxLayout();
 
-    scene = new Scene(this);
+    propertyPicker = new PropertyPicker(centralWidget);
+    propertyPicker->hide();
+
+    scene = new Scene(this,propertyPicker);
 
     graphicsView = new QGraphicsView(centralWidget);
     graphicsView->viewport()->setCursor(Qt::BlankCursor);
@@ -133,8 +144,7 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
     list = new List(this);
     rightSide->addWidget(list);
 
-    propertyPicker = new PropertyPicker(centralWidget);
-    propertyPicker->hide();
+
     rightSide->addWidget(propertyPicker);
     
 
@@ -150,7 +160,7 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
 
     horizontalLayout_2->addWidget(label);
 
-    QComboBox *comboBox = new QComboBox(verticalWidget_2);
+    comboBox = new QComboBox(verticalWidget_2);
     comboBox->addItem(QString("SELECT"));
     comboBox->addItem(QString("BOT"));
     comboBox->addItem(QString("HUMAN_BOT"));
@@ -168,6 +178,8 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
     this->setCentralWidget(centralWidget);
 
     this->show();
+
+    FocusColector::get_instance().subscribe(this, SLOT(select(int)));
 }
 
 void GUI_Window::showEvent(QShowEvent *) {

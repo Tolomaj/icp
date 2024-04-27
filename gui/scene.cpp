@@ -63,8 +63,9 @@ void Scene::DBG_draw_line(int x1, int y1, int x2,int y2, QColor color){ //dbg
     this->update();
 };
 
-Scene::Scene(QWidget *parent):QGraphicsScene(parent) {
+Scene::Scene(QWidget *parent, PropertyPicker * picker):QGraphicsScene(parent) {
     this->parent = parent;
+    this->picker = picker;
 
     this->setSceneRect(-BOT_SIZE/2, -BOT_SIZE/2, ARENA_SIZE_X + BOT_SIZE, ARENA_SIZE_Y + BOT_SIZE);
     this->setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -99,6 +100,7 @@ void Scene::mouseMoveEvent(QGraphicsSceneMouseEvent *e) {
     if(momental_cursor != nullptr){
         const QPointF p = e->scenePos();
         momental_cursor->setPos(p.x(),p.y());
+        momental_cursor->setRotation(picker->get_rotation());
     }
 }
 
@@ -116,13 +118,13 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent * e)  {
 
     switch (pickmode){
         case BOX_PICKING:
-            Mediator::get_instance().notify_registartion(BOX, p.x(), p.y() , 0,0,0,0);
+            Mediator::get_instance().notify_registartion(BOX, p.x(), p.y() , picker->get_rotation(),picker->get_colide_rotation(),picker->get_bot_vision(),picker->get_rotation_direction());
             break;
         case MAN_BOT_PICKING:
-            Mediator::get_instance().notify_registartion(MAN_ROBOT, p.x(), p.y() , random()%360,0,0,0);
+            Mediator::get_instance().notify_registartion(MAN_ROBOT, p.x(), p.y() , picker->get_rotation(),picker->get_colide_rotation(),picker->get_bot_vision(),picker->get_rotation_direction());
             break;
         case AI_BOT_PICKING:
-            Mediator::get_instance().notify_registartion(AI_ROBOT, p.x(), p.y() , random()%360,0,0,0);
+            Mediator::get_instance().notify_registartion(AI_ROBOT, p.x(), p.y() , picker->get_rotation(),picker->get_colide_rotation(),picker->get_bot_vision(),picker->get_rotation_direction());
             break;
         case DELETING:
         case SELECTING:

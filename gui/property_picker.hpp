@@ -10,8 +10,19 @@ Q_OBJECT
     SignedSlider * colision_rotation;
     SignedSlider * bot_sense;
     SignedSlider * bot_rotartion;
+    QComboBox *comboBox;
+    QLabel *labelc;
 
-    bool colision_rotation_direction = false;
+    bool colision_rotation_direction = true;
+
+protected slots:
+void dropdown(QString string){
+    if(string == QLatin1String("DOPRVA")){
+        colision_rotation_direction = true;
+    }else{
+        colision_rotation_direction = false;
+    }
+}
 
 public: 
 
@@ -29,12 +40,24 @@ public:
     }  
 
     bool get_rotation_direction(){
-        
+        return colision_rotation_direction;
     }  
 
-    void setMode(){ // rotation only / full
-
+    void setFullMode(bool full){ // rotation only / full
+        if(full){
+            colision_rotation->show();
+            comboBox->show();
+            bot_sense->show();
+            labelc->show();
+        }else{
+            colision_rotation->hide();
+            comboBox->hide();
+            bot_sense->hide();
+            labelc->hide();
+        }
     }
+
+
 
     PropertyPicker(QWidget *parent = 0):QFrame(parent) {
         QVBoxLayout * pickerSection = new QVBoxLayout(this);
@@ -47,10 +70,10 @@ public:
 
         QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(1);
-        QLabel *labelc = new QLabel(this);
+        labelc = new QLabel(this);
         labelc->setText("Při názaru otočit:");
         horizontalLayout_2->addWidget(labelc);
-        QComboBox *comboBox = new QComboBox(this);
+        comboBox = new QComboBox(this);
         comboBox->addItem(QString("DOPRVA"));
         comboBox->addItem(QString("DOLEVA"));
         horizontalLayout_2->addWidget(comboBox);
@@ -60,6 +83,8 @@ public:
         pickerSection->addWidget((QWidget *)colision_rotation);
         pickerSection->addWidget((QWidget *)bot_sense);
         pickerSection->addWidget((QWidget *)bot_rotartion);
+
+        connect(comboBox,SIGNAL(currentIndexChanged(const QString&)),this,SLOT(dropdown(const QString)));
 
     }
 

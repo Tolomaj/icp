@@ -99,16 +99,30 @@ public slots:
         } 
     } 
 
-    void tstregistration(ObjectType bject){
+    void tstregistration(ObjectType bject,int x , int y , int rotation,int colide_rotation,int sence_lenght,bool rotation_direction){
+        QString s;
         switch (bject) {
             case AI_ROBOT:
-                qDebug("EVENT_PROBE requesting AI_ROBOT");
+
+                s = QString("EVENT_PROBE requesting AI_ROBOT °");
+                s = s + QString::number(rotation);
+                s = s+ QString(" - ");
+                s = s + QString::number(colide_rotation);
+                s = s+ QString(" - ");
+                s = s + QString::number(sence_lenght);
+                s = s+ QString(" - ");
+                s = s + QString::number(rotation_direction);
+                s = s+ QString(";");
+                qDebug(s.toStdString().c_str());
                 break;
             case MAN_ROBOT:
-                qDebug("EVENT_PROBE requesting MAN_ROBOT");
+                s = QString("EVENT_PROBE requesting MAN_ROBOT °");
+                s = s + QString::number(rotation);
+                s = s+ QString(";");
+                qDebug(s.toStdString().c_str());
                 break;
             case BOX:
-                qDebug("EVENT_PROBE requesting BOX");
+                qDebug((QString("EVENT_PROBE requesting BOX °") + QString::number(rotation)).toStdString().c_str());
                 break;
             default:
                 break;
@@ -141,7 +155,7 @@ Test_Probe():QObject(){
 
 
     Mediator::get_instance().subscribe_bot_controll(this, SLOT(tstControll(int, ControllComand)));
-    Mediator::get_instance().subscribe_registartion(this, SLOT(tstregistration(ObjectType))); 
+    Mediator::get_instance().subscribe_registartion(this, SLOT(tstregistration(ObjectType,int , int , int ,int ,int ,bool))); 
     Mediator::get_instance().subscribe_forvarded_registartion(this, SLOT(tstFWregistration(ObjectType,int))); 
     Mediator::get_instance().subscribe_states_changes(this, SLOT(tstState(int,RoboState))); 
     Mediator::get_instance().subscribe_move(this, SLOT(tstMove(int,int,int,int))); 
