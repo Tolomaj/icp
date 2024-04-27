@@ -1,8 +1,6 @@
 #include "main_win.hpp"
 
-#pragma once
-
-void MainWindow::open_file(){
+void GUI_Window::open_file(){
     QString filename = QFileDialog::getOpenFileName( nullptr,
         QObject::tr("Open playground file"),
         QDir::currentPath(),
@@ -11,7 +9,7 @@ void MainWindow::open_file(){
     Mediator::get_instance().notify_send_save(LOAD,filename);
 }
 
-void MainWindow::save_file(){
+void GUI_Window::save_file(){
     QString filename = QFileDialog::getSaveFileName(nullptr,
         QObject::tr("Save playground file"),
         QDir::currentPath(),
@@ -19,23 +17,23 @@ void MainWindow::save_file(){
     Mediator::get_instance().notify_send_save(SAVE,filename);
 }
 
-void MainWindow::message(QString ins){
+void GUI_Window::message(QString ins){
     QMessageBox::about(this, tr("info"), ins);
 }
 
-void MainWindow::stopButton_f(){
+void GUI_Window::stopButton_f(){
     Mediator::get_instance().notify_simulation_controll(STOP);
 }
 
-void MainWindow::stepButton_f(){
+void GUI_Window::stepButton_f(){
     Mediator::get_instance().notify_simulation_controll(STEP);
 }
 
-void MainWindow::runButton_f(){
+void GUI_Window::runButton_f(){
     Mediator::get_instance().notify_simulation_controll(RUN);
 }
   
-void MainWindow::dropdown(QString string){
+void GUI_Window::dropdown(QString string){
     if(string == QLatin1String("BOT")){
         scene->setClickAction(AI_BOT_PICKING);
 
@@ -55,13 +53,14 @@ void MainWindow::dropdown(QString string){
         qDebug("error state not picking option");
     }
 }
-
-void MainWindow::select_Object(int id){
-    //scene->select(id);
-    techScroll->select(id);
+/*
+fixme
+void GUI_Window::select_Object(int id){
+    scene->select(id);
+    list->select(id);
 }
-
-MainWindow::MainWindows(QMainWindow *parent):QMainWindow(parent) {
+*/
+GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
 
     //set title
     this->setWindowTitle("Robots");
@@ -136,11 +135,11 @@ MainWindow::MainWindows(QMainWindow *parent):QMainWindow(parent) {
     QVBoxLayout * verticalLayout = new QVBoxLayout(verticalWidget_2);
     verticalLayout->setContentsMargins(0, 0, 0, 0);
 
-    techScroll = new List(this);
+    list = new List(this);
 
   
 
-    verticalLayout->addWidget(techScroll);
+    verticalLayout->addWidget(list);
 
     QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();
     horizontalLayout_2->setSpacing(1);
@@ -165,14 +164,14 @@ MainWindow::MainWindows(QMainWindow *parent):QMainWindow(parent) {
     horizontalLayout->addWidget(verticalWidget_2);
 
     this->setCentralWidget(centralWidget);
-        
+
     this->show();
 }
 
-void MainWindow::showEvent(QShowEvent *) {
+void GUI_Window::showEvent(QShowEvent *) {
     graphicsView->fitInView(scene->sceneRect(),Qt::KeepAspectRatio);
 }
 
-void MainWindow::resizeEvent(QResizeEvent* event){
+void GUI_Window::resizeEvent(QResizeEvent* event){
     graphicsView->fitInView(scene->sceneRect(),Qt::KeepAspectRatio);
 }

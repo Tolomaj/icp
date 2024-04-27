@@ -3,6 +3,9 @@
 * je to jediný soubor ve kterém provádějte změny když dojde k porušení závyslostí knihoven
 */
 
+#ifndef GUI_LIBS_FILE_WIN_H
+#define GUI_LIBS_FILE_WIN_H
+
 // knihovny mediatoru a zakladní vlastzosti simulace
 #include "../link/simu_info.hpp"
 #include "../link/mediator.hpp"
@@ -28,3 +31,6 @@
 #include <QString>
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
+#include <QGraphicsScene>
+
+#endif

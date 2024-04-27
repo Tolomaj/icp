@@ -43,11 +43,13 @@ Kde X a Y jsou souřadnice a R je rotace.
 
 ## Popis souborů
 
-|      soubor     |           popis obsahu souboru                                                                |
-|-----------------|-----------------------------------------------------------------------------------------------|
-|simu_info.hpp    | nemnné nastavení simulace jako jsou velikost arény nebo velikosti objektů                     |
-|mediator.hpp     | objekt který je komunikačním rozhraním mezi QUI a SIMULACÍ *(více v sekci Návrh Projektu)*    |
-|Testing_object.h | objekt naslouchající a vypisující konverzaci mezi gui a simulací                              |
-|simulation.hpp   | object provádějící simulaci                                                                   |
-|sim_data.hpp     | drží informace o všech simulovanýcho objektech, také stará se o načítání a ukládání do souboru|
+|      soubor      |           popis obsahu souboru                                                                |
+|------------------|-----------------------------------------------------------------------------------------------|
+|simu_info.hpp     | nemnné nastavení simulace jako jsou velikost arény nebo velikosti objektů                     |
+|mediator.hpp      | objekt který je komunikačním rozhraním mezi QUI a SIMULACÍ *(více v sekci Návrh Projektu)*    |
+|Testing_object.h  | objekt naslouchající a vypisující konverzaci mezi gui a simulací                              |
+|simulation.hpp    | object provádějící simulaci                                                                   |
+|sim_data.hpp      | drží informace o všech simulovanýcho objektech, také stará se o načítání a ukládání do souboru|
+|focus_colector.hpp| obsahuje singletron přez který se notifikuje který objekt byl vybrán pro gui                  |
+|libs.hpp          | obsahuje všechny použité QT knihovny                                                          |
 //?***todo add other files***?//

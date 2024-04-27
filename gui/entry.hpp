@@ -1,4 +1,5 @@
 #include "libs.h"
+#include "focus_colector.hpp"
 
 #pragma once
 
@@ -9,6 +10,11 @@ protected:
     QLabel *entry_name;
     QHBoxLayout* layout;
     int object_id = 0;
+    bool selected = false;
+
+    void keyReleaseEvent(QKeyEvent *ev){
+        qDebug("You Release Key ");
+    }
 
 protected slots:
 
@@ -21,20 +27,23 @@ protected slots:
         delete this;
     }
 
+    void select(int id){
+        if(id == object_id){
+            this->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+            selected = true;
+        }else{
+            this->setFrameStyle(QFrame::Panel | QFrame::Raised);
+            selected = false;
+        }
 
+    }
+    
 public: 
 
     int get_id(){
         return object_id;
     }
 
-    void select(){
-        this->setFrameStyle(QFrame::Panel | QFrame::Raised);
-    }
-
-    void unselect(){
-        this->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-    }
 
 
     Entry(QWidget *parent = 0,int object_id = 0):QFrame(parent) {
@@ -54,8 +63,16 @@ public:
         layout->addWidget(entry_name);
 
         this->setFrameStyle(QFrame::Panel | QFrame::Raised);
+        this->setLineWidth(3);
+
+        this->setFocusPolicy(Qt::ClickFocus);
         
         Mediator::get_instance().subscribe_unregistration(this, SLOT(remove_entry(int)));
+        FocusColector::get_instance().subscribe(this, SLOT(select(int)));
     }
+
+void mousePressEvent(QMouseEvent * e)  {
+   FocusColector::get_instance().focus_object(this->object_id);
+}
 
 };

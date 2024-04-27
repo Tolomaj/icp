@@ -5,6 +5,10 @@
 #include "bot_entry.hpp"
 #include "ai_entry.hpp"
 
+// makro prevence hlášení nepužité proměnné
+#define UNUSED(x) (void)(x)
+#define NONE -1
+
 class List :public QScrollArea{ 
 Q_OBJECT
 
@@ -20,6 +24,12 @@ private:
 
 public slots:
     void add_entry(ObjectType type, int i, int x, int y, int r){
+
+        // protože jde o signál jsou zde naví parametry
+        UNUSED(x);
+        UNUSED(y);
+        UNUSED(r);
+
         qDebug("entry entering from widget");
        
         switch (type) {
@@ -38,28 +48,14 @@ public slots:
 
 public: 
 
-    void select(int id){
-        for (size_t i = 0; i < entryes->layout()->count(); i++)
-        {
-            QWidget *pttr = entryes->layout()->itemAt(i)->widget();
-
-            Entry * entry = dynamic_cast<Entry*>(pttr);
-            if(entry == nullptr || entry == NULL){ return; }
-
-            if(entry->get_id() == id){
-                entry->select();
-            }else{
-                entry->unselect();
-            }
-        } 
-    }
 
     List(QWidget *parent = 0):QScrollArea(parent) {
         this->parent = parent;
 
-        this->setMaximumSize(QSize(250, 16777215));
-        this->setMinimumSize(QSize(200, 0));
+        this->setMaximumSize(QSize(230, 16777215));
+        this->setMinimumSize(QSize(220, 0));
         this->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+        this->setLineWidth(3);
         this->setWidgetResizable(true);
 
         entryes = new QWidget;
@@ -72,9 +68,7 @@ public:
         entryes->setLayout(layout);
         this->setWidget(entryes);
 
-
         Mediator::get_instance().subscribe_forvarded_registartion(this, SLOT(add_entry(ObjectType, int, int, int , int)));
-    
 
     }
 

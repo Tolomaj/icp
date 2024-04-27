@@ -1,21 +1,25 @@
+#ifndef GUI_MAIN_WIN_H
+#define GUI_MAIN_WIN_H
+
 #include "libs.h"
 
 #include "scene.hpp"
 #include "list.hpp"
+#include "focus_colector.hpp"
 
-#pragma once
+class Scene;
 
-class MainWindow: public QMainWindow{ 
+class GUI_Window: public QMainWindow { 
 Q_OBJECT
 
 private:
-    Scene *scene;
-    List * techScroll;
+    Scene * scene;
+    List * list;
 
     QGraphicsView *graphicsView;
 public:
 
-    virtual ~MainWindow() {}; // https://stackoverflow.com/questions/14010922/qt-undefined-reference-to-vtable
+    virtual ~GUI_Window() {}; // https://stackoverflow.com/questions/14010922/qt-undefined-reference-to-vtable
 
 public slots:
 
@@ -32,12 +36,13 @@ public slots:
     void runButton_f();
   
     void dropdown(QString string);
+    
+    //void select_Object(int id);
 
 public: 
 
-    void select_Object(int id);
 
-    MainWindow(QMainWindow *parent = 0);
+    GUI_Window(QMainWindow *parent = 0);
 
     void showEvent(QShowEvent *);
 
@@ -45,3 +50,5 @@ public:
 
 
 };
+
+#endif

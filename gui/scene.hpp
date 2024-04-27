@@ -1,9 +1,14 @@
+#ifndef GUI_SCENE_H
+#define GUI_SCENE_H
+
 #include "libs.h"
 
 #include "movable_entity.hpp"
 #include "scene_entity.hpp"
 
-#pragma once
+#include <vector> 
+using namespace std; 
+
 
 enum PickingCursor{ // lehce nevhodně pojmenované 
     MAN_BOT_PICKING,
@@ -19,6 +24,7 @@ Q_OBJECT
     virtual ~Scene() {}; // https://stackoverflow.com/questions/14010922/qt-undefined-reference-to-vtable
 
 private:
+    QWidget *parent;
 
     PickingCursor pickmode = SELECTING;
 
@@ -33,7 +39,6 @@ private:
     bool cursor_hiden = true;
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *e) override;
-
     void mousePressEvent(QGraphicsSceneMouseEvent * e) override;
 
     // schovávání pick kurzoru když není ve scéně
@@ -46,12 +51,10 @@ public slots:
    
 public:
 
+    Scene(QWidget * parent );
+
     void setClickAction(PickingCursor cursor);
-    
-    void select(int id);
-
-    Scene(QObject *parent = 0);
-
-
 
 };
+
+#endif

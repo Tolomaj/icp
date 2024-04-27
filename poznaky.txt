@@ -1,12 +1,12 @@
 //todo
--add icons for list (dropdown)
--označování objěktů zmáčknutím myši (přidání id do textury robota aby se dala recovernout)
 
+* add icons for list (dropdown)
 
-- reorganizace do složek sim/ gui
-- rozdelit cpp a hpp soubory
+? rozdelit cpp a hpp soubory
+? přidat ovládání klávesou
 
-
+-bot image a box image jako singletron pro usporu paměti
+--drag (při přetažení zničí objekt na pozici A a vytvoří nový na pozici B)
 
 - simulace
 - načítání dat

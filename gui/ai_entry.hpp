@@ -39,7 +39,7 @@ public:
         layout->addSpacerItem(new QSpacerItem(1,1, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
         stateLabel = new QLabel;
-        stateLabel->setText("[UNKNOWN]");
+        stateLabel->setText("[SLEEP]");
         stateLabel->setMargin(5);
         layout->addWidget(stateLabel);
         

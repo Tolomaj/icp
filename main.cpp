@@ -11,7 +11,7 @@
 int main(int argc, char *argv[])
 {
    QApplication app(argc, argv);
-   MainWindow window;
+   GUI_Window window;
 
    new Test_Probe(); // tento objekt monitoruje eventy střídané mezi GUI a simulace
 

@@ -1,9 +1,5 @@
-#include "libs.h"
-
-#include "movable_entity.hpp"
-#include "scene_entity.hpp"
-
 #include "scene.hpp"
+
 
 
 void Scene::setClickAction(PickingCursor cursor){
@@ -46,18 +42,14 @@ void Scene::create_entyty(ObjectType type,int id, int x , int y , int rotation){
         break;
     
     case AI_ROBOT:
-        new MovableEntity(this,id,x,y,rotation,"img/ai_bot.png");
+        new MovableEntity(this,id,x,y,rotation,"img/ai_bot.png","img/ai_bot-sel.png");
         break;
 
     }        
 }
 
-
-void Scene::select(int id){
-    //todo
-}
-
-Scene::Scene(QObject *parent ):QGraphicsScene(parent) {
+Scene::Scene(QWidget *parent):QGraphicsScene(parent) {
+    this->parent = parent;
 
     this->setSceneRect(-BOT_SIZE/2, -BOT_SIZE/2, ARENA_SIZE_X + BOT_SIZE, ARENA_SIZE_Y + BOT_SIZE);
     this->setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -114,23 +106,25 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent * e)  {
             break;
         case DELETING:
         case SELECTING:
-            // ignorování kurzoru
-            if(momental_cursor != nullptr){ this->removeItem(momental_cursor); };
+            if(momental_cursor != nullptr){ this->removeItem(momental_cursor); }; // ignorování kurzoru
             pttr = itemAt(p, QTransform());
-            // ignorování kurzoru
-            if(momental_cursor != nullptr){ this->addItem(momental_cursor); };
+            if(momental_cursor != nullptr){ this->addItem(momental_cursor); }; // ignorování kurzoru
 
             texture_reference = dynamic_cast<SignedTexture*>(pttr);
-                
-            // kontrola jestli objekt je klikatelný (má id)
-            if(texture_reference == NULL){ return; }
-            qDebug((QString("obj id ") + QString::number( texture_reference->get_id() )).toStdString().c_str());
-
+        
             if(pickmode == DELETING){
+                // pro mód mazání //
+                if(texture_reference == NULL){ return; }  // kontrola jestli objekt je klikatelný (má id)
                 Mediator::get_instance().notify_unregistration(texture_reference->get_id());
             }else{
-                //todo selected
+                // pro mód vybírání //
+                if(texture_reference == NULL){
+                    FocusColector::get_instance().focus_object(NONE);
+                    return; // nevybrán platný objekt
+                }
+                FocusColector::get_instance().focus_object(texture_reference->get_id());
             }
+            qDebug((QString("obj id ") + QString::number( texture_reference->get_id() )).toStdString().c_str());
                 
         break;
     } 
