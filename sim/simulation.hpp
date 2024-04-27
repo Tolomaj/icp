@@ -21,8 +21,6 @@
 #include "../link/simu_info.hpp"
 #include "../link/mediator.hpp"
 
-#include "sim_data.hpp"
-
 
 #pragma once
 
@@ -32,7 +30,9 @@ Q_OBJECT
 
 private:
     QTimer *timer;
-    SimulationData *data;
+    
+    int max_id = 0;//fixme dočasné na testování
+
 
 
 private slots:
@@ -62,6 +62,12 @@ public slots:
         }
     }
 
+void reqestEntity(ObjectType type,int x , int y , int rotation,int colide_rotation,int sence_lenght,bool rotation_direction){
+        //todo // tady bude registrace objektu do dat simulace
+        max_id++; //fixme dočasné na testování
+        //todo // a také vybírání volného id
+        Mediator::get_instance().notify_forvarded_registartion(type, max_id,x , y , rotation);
+    }
 
 public:
 
@@ -69,9 +75,9 @@ public:
         timer = new QTimer(this);
         timer->setInterval(1000);
         connect(timer, SIGNAL(timeout()), this, SLOT(tick()));
-        data = new SimulationData();
-
+        
         Mediator::get_instance().subscribe_simulation_controll(this, SLOT(simulation_set(SimuControll)));
+        Mediator::get_instance().subscribe_registartion(this, SLOT(reqestEntity(ObjectType ,int , int , int ,int ,int ,bool )));
 
     }
 

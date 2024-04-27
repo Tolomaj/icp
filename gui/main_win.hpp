@@ -5,6 +5,7 @@
 
 #include "scene.hpp"
 #include "list.hpp"
+#include "property_picker.hpp"
 #include "focus_colector.hpp"
 
 class Scene;
@@ -17,6 +18,8 @@ private:
     List * list;
 
     QGraphicsView *graphicsView;
+    PropertyPicker * propertyPicker;
+    QVBoxLayout * rightSide; 
 public:
 
     virtual ~GUI_Window() {}; // https://stackoverflow.com/questions/14010922/qt-undefined-reference-to-vtable

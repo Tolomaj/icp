@@ -24,6 +24,8 @@ HEADERS += gui/movable_entity.hpp
 HEADERS += gui/signed_texture.hpp
 HEADERS += gui/libs.h
 HEADERS += gui/focus_colector.hpp
+HEADERS += gui/property_picker.hpp
+HEADERS += gui/signed_slider.hpp
 
 SOURCES += gui/scene.cpp
 SOURCES += gui/main_win.cpp
@@ -31,7 +33,6 @@ SOURCES += gui/main_win.cpp
 
 
 # ------------ závislosti simulace ------------ #
-HEADERS += sim/sim_data.hpp
 HEADERS += sim/simulation.hpp
 
 

@@ -36,6 +36,8 @@ void GUI_Window::runButton_f(){
 void GUI_Window::dropdown(QString string){
     if(string == QLatin1String("BOT")){
         scene->setClickAction(AI_BOT_PICKING);
+        propertyPicker->show();
+        return;
 
     }else if(string == QLatin1String("HUMAN_BOT")){
         scene->setClickAction(MAN_BOT_PICKING);
@@ -49,6 +51,7 @@ void GUI_Window::dropdown(QString string){
     }else{
         scene->setClickAction(SELECTING);
     }
+    propertyPicker->hide();
 }
 
 GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
@@ -123,14 +126,22 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
     horizontalLayout->addLayout(verticalLayout_2);
 
     QWidget * verticalWidget_2 = new QWidget(centralWidget);
-    QVBoxLayout * verticalLayout = new QVBoxLayout(verticalWidget_2);
-    verticalLayout->setContentsMargins(0, 0, 0, 0);
+    rightSide = new QVBoxLayout(verticalWidget_2);
+    rightSide->setContentsMargins(0, 0, 0, 0);
+
 
     list = new List(this);
+    rightSide->addWidget(list);
 
-  
+    propertyPicker = new PropertyPicker(centralWidget);
+    propertyPicker->hide();
+    rightSide->addWidget(propertyPicker);
+    
 
-    verticalLayout->addWidget(list);
+
+
+
+
 
     QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();
     horizontalLayout_2->setSpacing(1);
@@ -151,7 +162,7 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
 
 
     horizontalLayout_2->addWidget(comboBox);
-    verticalLayout->addLayout(horizontalLayout_2);
+    rightSide->addLayout(horizontalLayout_2);
     horizontalLayout->addWidget(verticalWidget_2);
 
     this->setCentralWidget(centralWidget);

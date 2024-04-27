@@ -116,13 +116,13 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent * e)  {
 
     switch (pickmode){
         case BOX_PICKING:
-            Mediator::get_instance().notify_registartion(BOX, p.x(), p.y() , 0);
+            Mediator::get_instance().notify_registartion(BOX, p.x(), p.y() , 0,0,0,0);
             break;
         case MAN_BOT_PICKING:
-            Mediator::get_instance().notify_registartion(MAN_ROBOT, p.x(), p.y() , random()%360);
+            Mediator::get_instance().notify_registartion(MAN_ROBOT, p.x(), p.y() , random()%360,0,0,0);
             break;
         case AI_BOT_PICKING:
-            Mediator::get_instance().notify_registartion(AI_ROBOT, p.x(), p.y() , random()%360);
+            Mediator::get_instance().notify_registartion(AI_ROBOT, p.x(), p.y() , random()%360,0,0,0);
             break;
         case DELETING:
         case SELECTING:

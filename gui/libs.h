@@ -32,5 +32,6 @@
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsScene>
+#include <QSlider>
 
 #endif

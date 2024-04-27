@@ -81,7 +81,7 @@ public:
 
 signals:
    // registrace robota, ovládáno z gui (pozadavek na vytvoření robota a přižazení id)
-    void notify_registartion(ObjectType type,int x , int y , int rotation);
+    void notify_registartion(ObjectType type,int x , int y , int rotation,int colide_rotation = 0,int sence_lenght = 0,bool rotation_direction = false);
     // potvrzení registrace robota od data pro gui (pravděpodobná reakce na registrateion)
     void notify_forvarded_registartion(ObjectType type, int id,int x , int y , int rotation);
     // zničení robota voláno z menu entry

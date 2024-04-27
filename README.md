@@ -32,7 +32,7 @@ Je tedy možné si gui s mediatorem přidat do vlastního projektu a používat 
 Načítání i ukládání lze zvolit v GUI to ovšem zašle pouze signál objektu dat simulace který soubor načte popřípadě uloží.
 Data jsou ukládána ve formátu:
 
-    BOT {X} {Y} {R}
+    BOT {X} {Y} {R} 
     BOX {X} {Y}
     AI {X} {Y} {R}
     BOX {X} {Y}
