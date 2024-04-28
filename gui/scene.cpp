@@ -12,6 +12,8 @@ void Scene::setClickAction(PickingCursor cursor){
             break;
         case AI_BOT_PICKING:
             momental_cursor = ai_bot_cursor;
+            cursor_bot_vision->show();
+            cursor_bot_rotation->show();
             break;
         case BOX_PICKING:
             momental_cursor = box_cursor;
@@ -27,6 +29,12 @@ void Scene::setClickAction(PickingCursor cursor){
     if(momental_cursor != nullptr && !cursor_hiden){
         this->addItem(momental_cursor);
     }    
+
+    if(cursor != AI_BOT_PICKING){
+        cursor_bot_vision->hide();
+        cursor_bot_rotation->hide();
+    }
+
 }
 
 
@@ -70,6 +78,17 @@ Scene::Scene(QWidget *parent, PropertyPicker * picker):QGraphicsScene(parent) {
     this->setSceneRect(-BOT_SIZE/2, -BOT_SIZE/2, ARENA_SIZE_X + BOT_SIZE, ARENA_SIZE_Y + BOT_SIZE);
     this->setItemIndexMethod(QGraphicsScene::NoIndex);
 
+
+    QPen onepen1(Qt::green);
+    onepen1.setWidth(6);
+    QPen onepen2(Qt::yellow);
+    onepen2.setWidth(4);
+    cursor_bot_vision = this->addLine(0, 0, 0, 0, onepen1);
+    cursor_bot_rotation = this->addLine(0, 0, 0, 0, onepen2);
+    cursor_bot_vision->hide();
+    cursor_bot_rotation->hide();
+
+
     QBrush trBrush(Qt::transparent);
     QPen outlinePen(Qt::blue);
     outlinePen.setWidth(5);
@@ -88,6 +107,8 @@ Scene::Scene(QWidget *parent, PropertyPicker * picker):QGraphicsScene(parent) {
     deleting_cursor = new QGraphicsPixmapItem(QPixmap("img/delcross.png").scaled(QSize(70, 70)));
     deleting_cursor->setOffset(-(70/2),-(70/2));
 
+
+
     installEventFilter(this);
 
 
@@ -101,6 +122,11 @@ void Scene::mouseMoveEvent(QGraphicsSceneMouseEvent *e) {
         const QPointF p = e->scenePos();
         momental_cursor->setPos(p.x(),p.y());
         momental_cursor->setRotation(picker->get_rotation());
+        int linesize = qSqrt((BOT_SIZE*BOT_SIZE)/2) + picker->get_bot_vision();
+        
+        int relative_rotation = (picker->get_colide_rotation()*(-2*(!picker->get_rotation_direction()) + 1) + picker->get_rotation());
+        cursor_bot_vision->setLine(p.x(),p.y(),p.x() + qCos(picker->get_rotation()* (3.141592 / 180)) * linesize ,p.y() + qSin(picker->get_rotation()* (3.141592 / 180)) * linesize);
+        cursor_bot_rotation->setLine(p.x(),p.y(),p.x() + qCos(relative_rotation* (3.141592 / 180)) * (qSqrt((BOT_SIZE*BOT_SIZE)/2) + 15) ,p.y() + qSin(relative_rotation * (3.141592 / 180)) * (qSqrt((BOT_SIZE*BOT_SIZE)/2) + 15));
     }
 }
 

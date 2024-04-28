@@ -33,5 +33,6 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsScene>
 #include <QSlider>
+#include <QtMath>
 
 #endif

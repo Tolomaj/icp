@@ -42,6 +42,8 @@ private:
     QGraphicsPixmapItem* deleting_cursor = nullptr;
     //aktuálně používaný kurzor
     QGraphicsPixmapItem* momental_cursor = nullptr; 
+    QGraphicsLineItem * cursor_bot_vision;
+    QGraphicsLineItem * cursor_bot_rotation;
 
     // ukládá jestli je kurzor schovaný 
     bool cursor_hiden = true;
