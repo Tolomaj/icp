@@ -1,26 +1,11 @@
 #include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QGraphicsView>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QWidget>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QGraphicsPixmapItem>
 #include <QString>
 #include <QTimer>
 
 #include "../link/simu_info.hpp"
 #include "../link/mediator.hpp"
 
+#include "rect_colider.h"
 
 #pragma once
 
@@ -32,12 +17,30 @@ private:
     QTimer *timer;
     
     int max_id = 0;//fixme dočasné na testování
+    int index = 0;
 
 
 
 private slots:
     //průbeh simulace 
     void tick(){
+
+        Mediator::get_instance().notify_DBG_draw_line(CLEAR_LINES);
+
+        index = (index + 10)%80;
+        
+
+        RectColider rect = RectColider(20,20,110,60,100);
+        rect.print();
+
+        RectColider rect2 = RectColider(40+index,120,250,290,50);
+        rect2.print();
+
+        rect.colide(&rect2);
+
+
+         
+
         qDebug("this is tick");
         Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování
         Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování

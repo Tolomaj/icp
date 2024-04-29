@@ -34,6 +34,8 @@ SOURCES += gui/main_win.cpp
 
 # ------------ závislosti simulace ------------ #
 HEADERS += sim/simulation.hpp
+HEADERS += sim/shapes.h
+HEADERS += sim/rect_colider.h
 
 
 
