@@ -47,7 +47,7 @@ void GUI_Window::dropdown(QString string){
 
     }else if(string == QLatin1String("HUMAN_BOT")){
         scene->setClickAction(MAN_BOT_PICKING);
-        propertyPicker->setFullMode(false);
+        propertyPicker->setFullMode(true,true);
         propertyPicker->show();
     }else if(string == QLatin1String("BOX")){
         scene->setClickAction(BOX_PICKING);
@@ -67,6 +67,7 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
     //set title
     this->setWindowTitle("Robots");
     this->resize(750, 500);
+    setMinimumSize(300, 400);
 
     QWidget * centralWidget = new QWidget(this);
         
@@ -137,7 +138,11 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
     horizontalLayout->addLayout(verticalLayout_2);
 
     QWidget * verticalWidget_2 = new QWidget(centralWidget);
+
     rightSide = new QVBoxLayout(verticalWidget_2);
+
+    verticalWidget_2->setMaximumWidth(230);
+
     rightSide->setContentsMargins(0, 0, 0, 0);
 
 

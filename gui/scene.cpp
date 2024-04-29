@@ -64,7 +64,13 @@ void Scene::DBG_draw_line(int x1, int y1, int x2,int y2, QColor color){ //dbg
         lines.clear();
     }else{
         QPen onepen(color);
-        onepen.setWidth(3);
+        if(color == Qt::white || color == Qt::black){
+            onepen.setWidth(2);
+        }else{
+            onepen.setWidth(4);
+        }
+        
+        
         lines.push_back(this->addLine(x1, y1, x2, y2, onepen));
     }
 

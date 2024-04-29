@@ -43,12 +43,18 @@ public:
         return colision_rotation_direction;
     }  
 
-    void setFullMode(bool full){ // rotation only / full
+    void setFullMode(bool full, bool not_rotation = false){ // rotation only / full // or full without auto rotation
         if(full){
-            colision_rotation->show();
-            comboBox->show();
+            if(not_rotation){
+                colision_rotation->hide();
+                comboBox->hide();
+                labelc->hide();
+            }else{
+                colision_rotation->show();
+                comboBox->show();
+                labelc->show();
+            }
             bot_sense->show();
-            labelc->show();
         }else{
             colision_rotation->hide();
             comboBox->hide();
