@@ -137,8 +137,8 @@ public slots:
             case RIGHT:
                 qDebug((QString("EVENT_PROBE RIGHT go bot ID:")+ QString::number(id)).toStdString().c_str());
                 break;
-            case FORWARD:
-                qDebug((QString("EVENT_PROBE FORWARD go bot ID:") + QString::number(id)).toStdString().c_str());
+            case TOGGLE_MOVE:
+                qDebug((QString("EVENT_PROBE TOGGLE_MOVE go bot ID:") + QString::number(id)).toStdString().c_str());
                 break;
             default:
                 break;

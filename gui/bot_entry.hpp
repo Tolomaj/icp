@@ -11,7 +11,7 @@ Q_OBJECT
 
 public slots:
     void goButton_f(){
-        Mediator::get_instance().notify_bot_controll(object_id , FORWARD);
+        Mediator::get_instance().notify_bot_controll(object_id , TOGGLE_MOVE);
     }
 
     void leftButton_f(){

@@ -33,7 +33,7 @@ enum SimuControll{
 };
 
 enum ControllComand{
-    FORWARD,
+    TOGGLE_MOVE,
     LEFT,
     RIGHT
 };

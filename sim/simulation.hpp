@@ -18,7 +18,8 @@ private:
     
     int max_id = 0;//fixme dočasné na testování
     int index = 0;
-
+    Point position = Point(100,100);
+    int rotation = rand();
 
 
 private slots:
@@ -32,28 +33,56 @@ private slots:
         index = (index + 20) % 200;
         
 
-        ///Rect rect = Rect(Point(20,20),Point(110,60),100);
-        //rect.print();
-
-        //Rect rect2 = Rect(Point(250,290),Point(index-100,120),50);
+        //Rect rect2 = Rect(Point(150,230),Point(index+100,220),50);
         //rect2.print();
 
-        Circle crc = Circle(Point(100-index,120),BOT_SIZE/2);
-        crc.print();
+        //Circle crc = Circle(Point(100-index,120),BOT_SIZE/2);
+        //crc.print();
 
-        Circle crc2 = Circle(Point(index-100,120),BOT_SIZE/2);
+        Point recover = this->position;
+
+        this->position.x = this->position.x + cos(rotation*3.14159/180)*10;
+        this->position.y = this->position.y + sin(rotation*3.14159/180)*10;
+
+
+
+        Circle crc2 = Circle(Point(this->position.x,this->position.y),BOT_SIZE/2);
+        
+        Point R1;
+        R1.x = this->position.x + cos((rotation+90)*3.14159/180)*BOT_SIZE/2;
+        R1.y = this->position.y + sin((rotation+90)*3.14159/180)*BOT_SIZE/2;
+
+        Point R2;
+        R2.x = this->position.x - cos((rotation+90)*3.14159/180)*BOT_SIZE/2;
+        R2.y = this->position.y - sin((rotation+90)*3.14159/180)*BOT_SIZE/2;
+
+        Rect rect4 = Rect(R1,R2,100);
+        rect4.print();
         crc2.print();
+
+        Rect rect = Rect(Point(200,200),Point(310,160),100);
+        rect.print();
+
 
 
         Arena arena = Arena(ARENA_SIZE_X,ARENA_SIZE_Y);
 
-        bool collided = engine.collide(&crc,&crc2);
+        bool collided = engine.collide(&crc2,&arena);
+        bool collided3 = engine.collide(&rect4,&arena);
+        bool collided2 = engine.collide(&rect4,&rect);
+        //engine.collide(&rect2,&rect);
 
-        if(collided){
+        if(collided || collided2 || collided3){
             qDebug("echo lomus");
+            this->position = recover;
+            rotation = (rotation + random()%50)%360;
+            Mediator::get_instance().notify_states_change(1,COLIDED);
         }else{
+            Mediator::get_instance().notify_states_change(1,MOVING);
             qDebug("echo presum");
         }
+
+        Mediator::get_instance().notify_move(1,this->position.x,this->position.y,rotation);
 
         //rect.colide(&rect2);
 
@@ -61,11 +90,11 @@ private slots:
          
 
         qDebug("this is tick");
+       /* Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování
         Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování
         Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování
         Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování
-        Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování
-        Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování
+        Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování*/
     }
 
 public slots:
@@ -95,7 +124,7 @@ public:
 
     Simulation() : QObject(){
         timer = new QTimer(this);
-        timer->setInterval(1000);
+        timer->setInterval(10);
         connect(timer, SIGNAL(timeout()), this, SLOT(tick()));
         
         Mediator::get_instance().subscribe_simulation_controll(this, SLOT(simulation_set(SimuControll)));
