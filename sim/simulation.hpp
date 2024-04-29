@@ -5,7 +5,7 @@
 #include "../link/simu_info.hpp"
 #include "../link/mediator.hpp"
 
-#include "colision_engine/rect_colider.h"
+#include "collision_engine/collision_engine.hpp"
 
 #pragma once
 
@@ -25,18 +25,37 @@ private slots:
     //průbeh simulace 
     void tick(){
 
+        CollisionEngine engine;
+
         Mediator::get_instance().notify_DBG_draw_line(CLEAR_LINES);
 
-        index = (index + 10)%80;
+        index = (index + 20) % 200;
         
 
-        RectColider rect = RectColider(20,20,110,60,100);
-        rect.print();
+        ///Rect rect = Rect(Point(20,20),Point(110,60),100);
+        //rect.print();
 
-        RectColider rect2 = RectColider(40+index,120,250,290,50);
-        rect2.print();
+        //Rect rect2 = Rect(Point(250,290),Point(index-100,120),50);
+        //rect2.print();
 
-        rect.colide(&rect2);
+        Circle crc = Circle(Point(100-index,120),BOT_SIZE/2);
+        crc.print();
+
+        Circle crc2 = Circle(Point(index-100,120),BOT_SIZE/2);
+        crc2.print();
+
+
+        Arena arena = Arena(ARENA_SIZE_X,ARENA_SIZE_Y);
+
+        bool collided = engine.collide(&crc,&crc2);
+
+        if(collided){
+            qDebug("echo lomus");
+        }else{
+            qDebug("echo presum");
+        }
+
+        //rect.colide(&rect2);
 
 
          

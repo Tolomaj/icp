@@ -30,12 +30,21 @@ HEADERS += gui/signed_slider.hpp
 SOURCES += gui/scene.cpp
 SOURCES += gui/main_win.cpp
 
+#------------ collision_engine ----------------- #
+
+HEADERS += sim/collision_engine/b_shapes.h
+HEADERS += sim/collision_engine/arena.hpp
+HEADERS += sim/collision_engine/circle.hpp
+HEADERS += sim/collision_engine/arena.hpp
+HEADERS += sim/collision_engine/rect.hpp
+HEADERS += sim/collision_engine/collider.hpp
+HEADERS += sim/collision_engine/collision_engine.hpp
+
+
 
 
 # ------------ závislosti simulace ------------ #
 HEADERS += sim/simulation.hpp
-HEADERS += sim/shapes.h
-HEADERS += sim/rect_colider.h
 
 
 

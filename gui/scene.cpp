@@ -81,7 +81,7 @@ Scene::Scene(QWidget *parent, PropertyPicker * picker):QGraphicsScene(parent) {
     this->parent = parent;
     this->picker = picker;
 
-    this->setSceneRect(-BOT_SIZE/2, -BOT_SIZE/2, ARENA_SIZE_X + BOT_SIZE, ARENA_SIZE_Y + BOT_SIZE);
+    this->setSceneRect(0, 0, ARENA_SIZE_X , ARENA_SIZE_Y );
     this->setItemIndexMethod(QGraphicsScene::NoIndex);
 
 
@@ -140,8 +140,8 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent * e)  {
     QPointF p = e->scenePos();
 
     // kontrola jestli je v aréně
-    if(p.x() < 0){ p.setX(0); }
-    if(p.y() < 0){ p.setY(0); }
+    if(p.x() < BOT_SIZE/2){ p.setX(BOT_SIZE/2); }
+    if(p.y() < BOT_SIZE/2){ p.setY(BOT_SIZE/2); }
     if(p.x() > ARENA_SIZE_X){ p.setX(ARENA_SIZE_X); }
     if(p.y() > ARENA_SIZE_Y){ p.setY(ARENA_SIZE_Y); }
 
