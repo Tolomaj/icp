@@ -4,6 +4,9 @@
 #include "rect.hpp"
 #include "circle.hpp"
 #include "arena.hpp"
+#include "../../link/simu_info.hpp"
+
+#pragma once
 
 class CollisionEngine{
 private:
@@ -147,6 +150,7 @@ private:
 
     bool collide_rect_circle(Circle * A,Rect * B){
         //TODO !!
+        return false;
     }
 
 
@@ -179,7 +183,7 @@ public:
             return (collide_rect_rect((Rect*)A,(Rect*)B));
         }
 
-        qDebug("unknown colision pair!");
+        qDebug() << "unknown colision pair!" << A->getType() << " - " << B->getType();
         return false;
     };
 

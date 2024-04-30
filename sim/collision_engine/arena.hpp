@@ -1,6 +1,8 @@
 #include "b_shapes.h"
 #include "collider.hpp"
 
+#pragma once
+
 class Arena : public Colider{
 private:
     int width;

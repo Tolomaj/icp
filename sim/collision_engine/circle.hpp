@@ -1,6 +1,8 @@
 #include "b_shapes.h"
 #include "collider.hpp"
 
+#pragma once
+
 class Circle : public Colider{
 private:
     Point p;

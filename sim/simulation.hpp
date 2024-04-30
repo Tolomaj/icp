@@ -1,20 +1,31 @@
 #include <QtCore/QVariant>
 #include <QString>
 #include <QTimer>
+#include <vector>
 
 #include "../link/simu_info.hpp"
 #include "../link/mediator.hpp"
+#include "bot.hpp"
 
 #include "collision_engine/collision_engine.hpp"
+#include "collision_administrator.hpp"
+#include "collision_engine/collider.hpp"
+#include "collision_engine/arena.hpp"
+#include "bot.hpp"
+#include "MAN_Bot.hpp"
+#include "AI_bot.hpp"
+#include "box.hpp"
 
 #pragma once
 
+using namespace std;
 
 class Simulation : public QObject {
 Q_OBJECT
 
 private:
     QTimer *timer;
+    vector<Bot*> list;
     
     int max_id = 0;//fixme dočasné na testování
     int index = 0;
@@ -26,46 +37,20 @@ private slots:
     //průbeh simulace 
     void tick(){
 
-        CollisionEngine engine;
+
 
         Mediator::get_instance().notify_DBG_draw_line(CLEAR_LINES);
 
-        index = (index + 20) % 200;
+        for (auto & element : list) {
+            qDebug("list entry ");
+            element->update();
+        }
+
         
 
-        //Rect rect2 = Rect(Point(150,230),Point(index+100,220),50);
-        //rect2.print();
 
-        //Circle crc = Circle(Point(100-index,120),BOT_SIZE/2);
-        //crc.print();
-
-        Point recover = this->position;
-
-        this->position.x = this->position.x + cos(rotation*3.14159/180)*10;
-        this->position.y = this->position.y + sin(rotation*3.14159/180)*10;
-
-
-
-        Circle crc2 = Circle(Point(this->position.x,this->position.y),BOT_SIZE/2);
-        
-        Point R1;
-        R1.x = this->position.x + cos((rotation+90)*3.14159/180)*BOT_SIZE/2;
-        R1.y = this->position.y + sin((rotation+90)*3.14159/180)*BOT_SIZE/2;
-
-        Point R2;
-        R2.x = this->position.x - cos((rotation+90)*3.14159/180)*BOT_SIZE/2;
-        R2.y = this->position.y - sin((rotation+90)*3.14159/180)*BOT_SIZE/2;
-
-        Rect rect4 = Rect(R1,R2,100);
-        rect4.print();
-        crc2.print();
-
-        Rect rect = Rect(Point(200,200),Point(310,160),100);
-        rect.print();
-
-
-
-        Arena arena = Arena(ARENA_SIZE_X,ARENA_SIZE_Y);
+/*
+       
 
         bool collided = engine.collide(&crc2,&arena);
         bool collided3 = engine.collide(&rect4,&arena);
@@ -82,19 +67,14 @@ private slots:
             qDebug("echo presum");
         }
 
-        Mediator::get_instance().notify_move(1,this->position.x,this->position.y,rotation);
+        //Mediator::get_instance().notify_move(1,this->position.x,this->position.y,rotation);
 
         //rect.colide(&rect2);
 
 
-         
+         */
 
         qDebug("this is tick");
-       /* Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování
-        Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování
-        Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování
-        Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování
-        Mediator::get_instance().notify_move(random()%10,random()%ARENA_SIZE_X,random()%ARENA_SIZE_Y,random()%250);//fixme dočasné na testování*/
     }
 
 public slots:
@@ -117,14 +97,42 @@ void reqestEntity(ObjectType type,int x , int y , int rotation,int colide_rotati
         //todo // tady bude registrace objektu do dat simulace
         max_id++; //fixme dočasné na testování
         //todo // a také vybírání volného id
+
+        SceneObject * obj_r;
+        Bot * obj;
+
+        switch (type){
+            case AI_ROBOT:
+                obj = new AIBot(max_id,Point(x,y),rotation,sence_lenght,colide_rotation,rotation_direction);
+                obj_r = (SceneObject *)obj;
+                list.push_back(obj);
+                break;
+                
+            case MAN_ROBOT:
+                obj = new MANBot(max_id,Point(x,y),rotation,sence_lenght);
+                obj_r = (SceneObject *)obj;
+                list.push_back(obj);
+                break;
+            
+            case BOX:
+                obj_r =  new Box(max_id,Point(x,y),Point(x+10,y+10),10); // todo 
+                
+                break;
+
+        }   
+
+        
+        ColisionAdministrator::get_instance().registerOject(obj_r);
+        
         Mediator::get_instance().notify_forvarded_registartion(type, max_id,x , y , rotation);
+        
     }
 
 public:
 
     Simulation() : QObject(){
         timer = new QTimer(this);
-        timer->setInterval(10);
+        timer->setInterval(20);
         connect(timer, SIGNAL(timeout()), this, SLOT(tick()));
         
         Mediator::get_instance().subscribe_simulation_controll(this, SLOT(simulation_set(SimuControll)));
