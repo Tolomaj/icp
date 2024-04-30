@@ -16,7 +16,7 @@ public slots:
 
 public:
 
-    MovableEntity(QGraphicsScene * scene,int id, int x, int y, int rotation, const char * texture_img = "img/bot.png",const char * select_texture_img = "img/bo-sel.png", int size = BOT_SIZE) : SceneEntity(scene ,id ,x ,y ,rotation , texture_img ,select_texture_img, size ){
+    MovableEntity(QGraphicsScene * scene,int id, int x, int y, int rotation, ObjectType type) : SceneEntity(scene ,id ,x ,y ,rotation , type ){
         Mediator::get_instance().subscribe_move(this, SLOT(move_entity(int,int,int,int)));
     }
 

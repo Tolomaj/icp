@@ -40,11 +40,16 @@ HEADERS += sim/collision_engine/rect.hpp
 HEADERS += sim/collision_engine/collider.hpp
 HEADERS += sim/collision_engine/collision_engine.hpp
 
+HEADERS += sim/collision_administrator.hpp
+
 
 
 
 # ------------ závislosti simulace ------------ #
 HEADERS += sim/simulation.hpp
+HEADERS += sim/AI_Bot.hpp
+
+SOURCES += sim/collision_administrator.cpp
 
 
 

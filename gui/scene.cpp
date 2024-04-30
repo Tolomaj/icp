@@ -41,15 +41,15 @@ void Scene::setClickAction(PickingCursor cursor){
 void Scene::create_entyty(ObjectType type,int id, int x , int y , int rotation){
     switch (type){
     case BOX:
-        new SceneEntity(this,id,x,y,rotation);
+        new SceneEntity(this,id,x,y,rotation,type);
         break;
         
     case MAN_ROBOT:
-        new MovableEntity(this,id,x,y,rotation);
+        new MovableEntity(this,id,x,y,rotation,type);
         break;
     
     case AI_ROBOT:
-        new MovableEntity(this,id,x,y,rotation,"img/ai_bot.png","img/ai_bot-sel.png");
+        new MovableEntity(this,id,x,y,rotation,type);
         break;
 
     }        

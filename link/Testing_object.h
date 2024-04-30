@@ -76,7 +76,6 @@ public slots:
                 break;
             case COLIDED:
                 qDebug((QString("EVENT_PROBE state COLIDED recorded forID:")+ QString::number(id)).toStdString().c_str());
-                //todo qDebug() << "helo";
                 break;
             default:
                 break;

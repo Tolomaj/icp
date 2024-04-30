@@ -4,7 +4,7 @@
 
 */
 
-#define BOT_SIZE 90
+#define BOT_SIZE 70
 #define BOX_SIZE 130
 
 #define ARENA_SIZE_X 1000

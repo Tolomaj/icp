@@ -2,6 +2,10 @@
 
 #include "signed_texture.hpp"
 #include "focus_colector.hpp"
+#include "../link/mediator.hpp"
+
+
+#include "resources.hpp"
 
 #pragma once
 
@@ -38,14 +42,30 @@ public:
         return this->object_id;
     }
 
-
-
-    SceneEntity(QGraphicsScene * scene,int id, int x, int y, int rotation = 0, const char * texture_img = "img/box.png",const char * select_texture_img = "img/box-sel.png" , int size = BOX_SIZE) : QObject(){
-
+    SceneEntity(QGraphicsScene * scene,int id, int x, int y, int rotation , ObjectType type) : QObject(){
         this->object_id = id;
 
-        selected = QPixmap(select_texture_img).scaled(QSize(size, size));
-        notSelected = QPixmap(texture_img).scaled(QSize(size, size));
+        int size;
+        switch (type){
+        case BOX:
+            size = BOX_SIZE;
+            notSelected = SceneResources::get_instance().get_Texture(BOX_T);
+            selected = SceneResources::get_instance().get_Texture(BOX_SELECTED_T);
+            break;
+        
+        case AI_ROBOT:
+            size=BOT_SIZE;
+            notSelected = SceneResources::get_instance().get_Texture(AI_BOT_T);
+            selected = SceneResources::get_instance().get_Texture(AI_BOT_SELECTED_T);
+            break;
+        
+        case MAN_ROBOT:
+            size=BOT_SIZE;
+            notSelected = SceneResources::get_instance().get_Texture(MAN_BOT_T);
+            selected = SceneResources::get_instance().get_Texture(MAN_BOT_SELECTED_T);
+            break;
+        }
+
 
         texture = new SignedTexture(id,notSelected);
         texture->setOffset(-size/2,-size/2);
