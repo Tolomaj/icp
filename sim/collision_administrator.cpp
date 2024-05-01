@@ -22,7 +22,7 @@ using namespace std;
         if( engine.collide(object->get_radar(),&arena) ){
             return true;
         };
-                // kotrola jestli je v areně
+        // kotrola jestli je v areně
         if( engine.collide(object->get_colider(),&arena) ){
             return true;
         };

@@ -24,10 +24,11 @@ public:
     SceneResources() : QObject(){
         textures[AI_BOT_SELECTED_T] = QPixmap("img/ai_bot-sel.png").scaled(QSize(BOT_SIZE, BOT_SIZE));
         textures[AI_BOT_T] = QPixmap("img/ai_bot.png").scaled(QSize(BOT_SIZE, BOT_SIZE));
-        textures[MAN_BOT_SELECTED_T] = QPixmap("img/ai_bot-sel.png").scaled(QSize(BOT_SIZE, BOT_SIZE));
-        textures[MAN_BOT_T] = QPixmap("img/ai_bot.png").scaled(QSize(BOT_SIZE, BOT_SIZE));
+        textures[MAN_BOT_SELECTED_T] = QPixmap("img/bot-sel.png").scaled(QSize(BOT_SIZE, BOT_SIZE));
+        textures[MAN_BOT_T] = QPixmap("img/bot.png").scaled(QSize(BOT_SIZE, BOT_SIZE));
         textures[BOX_SELECTED_T] = QPixmap("img/box-sel.png").scaled(QSize(BOX_SIZE, BOX_SIZE));
         textures[BOX_T] = QPixmap("img/box.png").scaled(QSize(BOX_SIZE, BOX_SIZE));
+        
     };
 
     QPixmap get_Texture(RESOURCE_INTERNAL_TYPE type){

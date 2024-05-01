@@ -48,6 +48,7 @@ HEADERS += sim/collision_administrator.hpp
 # ------------ závislosti simulace ------------ #
 HEADERS += sim/simulation.hpp
 HEADERS += sim/AI_Bot.hpp
+HEADERS += sim/MAN_Bot.hpp
 
 SOURCES += sim/collision_administrator.cpp
 

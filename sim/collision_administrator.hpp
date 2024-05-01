@@ -33,8 +33,18 @@ public:
         return instance;
     }
 
-    void registerOject(SceneObject * object){
+    void registerObject(SceneObject * object){
         list.push_back(object);
+    }
+    SceneObject * unregisterObject(int id){
+
+        list.erase(remove_if(begin(list), end(list), [id](SceneObject * u){
+            if(u->get_id() == id){
+                return true;
+            }
+            return false;
+        }), end(list));
+        return nullptr;
     }
 
     bool collide(int id,Bot * object);

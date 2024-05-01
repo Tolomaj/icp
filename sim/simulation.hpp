@@ -36,45 +36,13 @@ private:
 private slots:
     //průbeh simulace 
     void tick(){
-
-
-
+        qDebug("this is tick");
         Mediator::get_instance().notify_DBG_draw_line(CLEAR_LINES);
 
         for (auto & element : list) {
-            qDebug("list entry ");
             element->update();
         }
-
         
-
-
-/*
-       
-
-        bool collided = engine.collide(&crc2,&arena);
-        bool collided3 = engine.collide(&rect4,&arena);
-        bool collided2 = engine.collide(&rect4,&rect);
-        //engine.collide(&rect2,&rect);
-
-        if(collided || collided2 || collided3){
-            qDebug("echo lomus");
-            this->position = recover;
-            rotation = (rotation + random()%50)%360;
-            Mediator::get_instance().notify_states_change(1,COLIDED);
-        }else{
-            Mediator::get_instance().notify_states_change(1,MOVING);
-            qDebug("echo presum");
-        }
-
-        //Mediator::get_instance().notify_move(1,this->position.x,this->position.y,rotation);
-
-        //rect.colide(&rect2);
-
-
-         */
-
-        qDebug("this is tick");
     }
 
 public slots:
@@ -115,16 +83,26 @@ void reqestEntity(ObjectType type,int x , int y , int rotation,int colide_rotati
                 break;
             
             case BOX:
-                obj_r =  new Box(max_id,Point(x,y),Point(x+10,y+10),10); // todo 
-                
+            
+                obj_r = new Box(max_id,Point(x,y),BOX_SIZE,rotation); // todo 
+
                 break;
 
         }   
+        
+        ColisionAdministrator::get_instance().registerObject(obj_r);
+    }
 
+    void unregisterEntity(int id){
         
-        ColisionAdministrator::get_instance().registerOject(obj_r);
-        
-        Mediator::get_instance().notify_forvarded_registartion(type, max_id,x , y , rotation);
+        list.erase(remove_if(begin(list), end(list), [id](SceneObject * u){
+            return u->get_id() == id;
+        }), end(list));
+
+        SceneObject * obj = ColisionAdministrator::get_instance().unregisterObject(id);
+        if(obj != nullptr){
+            delete obj;
+        }
         
     }
 
@@ -132,12 +110,12 @@ public:
 
     Simulation() : QObject(){
         timer = new QTimer(this);
-        timer->setInterval(20);
+        timer->setInterval(SIMULATION_DELAY);
         connect(timer, SIGNAL(timeout()), this, SLOT(tick()));
         
         Mediator::get_instance().subscribe_simulation_controll(this, SLOT(simulation_set(SimuControll)));
         Mediator::get_instance().subscribe_registartion(this, SLOT(reqestEntity(ObjectType ,int , int , int ,int ,int ,bool )));
-
+        Mediator::get_instance().subscribe_unregistration(this, SLOT(unregisterEntity(int )));
     }
 
 

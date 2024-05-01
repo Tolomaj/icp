@@ -1,5 +1,6 @@
 #include "b_shapes.h"
 #include "collider.hpp"
+#include <QtCore>
 
 #pragma once
 
@@ -42,7 +43,8 @@ public:
         this->type = RECT;
         this->p_a = a;
         this->p_b = b;
-        lineMultipliator = h/(sqrt((a.y-b.y)*(a.y-b.y)+(a.x-b.x)*(a.x-b.x))); 
+        qDebug() << "actual width of beam: " << h;
+        lineMultipliator = h/(sqrt((a.y-b.y)*(a.y-b.y)+(a.x-b.x)*(a.x-b.x)));
 
     };
 

@@ -4,12 +4,12 @@
 
 #pragma once
 
-class SceneObject : QObject{
+class SceneObject : public QObject{
 protected:
     int id;
     ObjectType type;
 public:
-    SceneObject(int id){
+    SceneObject(int id) : QObject(){
         this->id = id;
     }
 

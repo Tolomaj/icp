@@ -70,8 +70,8 @@ public:
         this->setFrameStyle(QFrame::Panel | QFrame::Sunken);
         
 
-        colision_rotation = new SignedSlider(this, "Rotace při nárazu:",360);
-        bot_sense = new SignedSlider(this, "Dohled bota:",200);
+        colision_rotation = new SignedSlider(this, "Rotace při nárazu:",360,20);
+        bot_sense = new SignedSlider(this, "Dohled bota:",200,BOT_SIZE/2 + 20,BOT_SIZE/2 + 1);
         bot_rotartion = new SignedSlider(this, "Rotace:",360);
 
         QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();

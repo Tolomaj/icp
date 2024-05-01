@@ -128,7 +128,7 @@ void Scene::mouseMoveEvent(QGraphicsSceneMouseEvent *e) {
         const QPointF p = e->scenePos();
         momental_cursor->setPos(p.x(),p.y());
         momental_cursor->setRotation(picker->get_rotation());
-        int linesize = qSqrt((BOT_SIZE*BOT_SIZE)/2) + picker->get_bot_vision();
+        int linesize = picker->get_bot_vision();
         
         int relative_rotation = (picker->get_colide_rotation()*(-2*(!picker->get_rotation_direction()) + 1) + picker->get_rotation());
         cursor_bot_vision->setLine(p.x(),p.y(),p.x() + qCos(picker->get_rotation()* (3.141592 / 180)) * linesize ,p.y() + qSin(picker->get_rotation()* (3.141592 / 180)) * linesize);
