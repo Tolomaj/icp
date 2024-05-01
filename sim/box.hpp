@@ -21,7 +21,10 @@ public:
         type = BOX;
         
         Mediator::get_instance().notify_forvarded_registartion(type, id,p.x, p.y, rotation);
-        rect.print(); // dbg
+
+        #if DEBUG_DAW
+        rect.print();
+        #endif
 
     };
     Colider * get_colider() override{

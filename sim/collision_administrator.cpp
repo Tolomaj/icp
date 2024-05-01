@@ -11,10 +11,10 @@ using namespace std;
                 continue;
             }
 
-            if( engine.collide(object->get_colider(),element->get_colider()) ){
-                return true;
-            };
-            if( engine.collide(object->get_radar(),element->get_colider()) ){
+            if( engine.collide(object->get_colider(),element->get_colider()) || engine.collide(object->get_radar(),element->get_colider()) ){
+                #if DEBUG_DAW
+                element->get_colider()->print();
+                #endif
                 return true;
             };
         }

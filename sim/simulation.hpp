@@ -83,9 +83,7 @@ void reqestEntity(ObjectType type,int x , int y , int rotation,int colide_rotati
                 break;
             
             case BOX:
-            
-                obj_r = new Box(max_id,Point(x,y),BOX_SIZE,rotation); // todo 
-
+                obj_r = new Box(max_id,Point(x,y),BOX_SIZE,rotation);
                 break;
 
         }   

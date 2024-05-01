@@ -34,7 +34,7 @@ public:
     Circle(){
     };
 
-    void print(){
+    void print() override{
         
         Mediator::get_instance().notify_DBG_draw_line(p.x - rad,p.y,p.x + rad,p.y ,Qt::green);
         Mediator::get_instance().notify_DBG_draw_line(p.x,p.y - rad,p.x,p.y + rad,Qt::green);

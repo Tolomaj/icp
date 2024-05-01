@@ -29,8 +29,10 @@ protected:
         R2.y = this->position.y - sin((rotation+90)*3.14159/180)*BOT_SIZE/2;
         radar = Rect(R1,R2,view);
 
+        #if DEBUG_DAW
         boady.print();
         radar.print();
+        #endif
 
         if(ColisionAdministrator::get_instance().collide(id,this)){
             this->position = recover;
@@ -58,6 +60,11 @@ public:
         R2.y = this->position.y - sin((rotation+90)*3.14159/180)*BOT_SIZE/2;
 
         radar = Rect(R1,R2,view);
+
+        #if DEBUG_DAW
+        boady.print();
+        radar.print();
+        #endif
 
     };
 
