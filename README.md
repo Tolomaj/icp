@@ -42,6 +42,12 @@ Kde X a Y jsou souřadnice a R je rotace.
 
 ## Komunikace mediatorem
 
+## Generace Doxy Dokumentace
+Pro generování dokumentace přejděte do složky docs a použijte příkaz 
+
+    doxygen Doxyfile
+
+Ten vygeneruje složku html ve které se nachází dokumentace
 
 
 ## Popis souborů

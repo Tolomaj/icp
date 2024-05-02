@@ -1,5 +1,6 @@
-# V této složce je veškeré gui
+# Složka gui
+Tato složka obsahuje veskeré gui
 Pro správnou funkčnost je ovšem nutné **mediator.h** a **sumu_info.h**, \
-při porušení závyslostí upravujte soubor **libs.h** do jiných souborů není potřeba zasahovat
+Při porušení závyslostí upravujte soubor **libs.h** do jiných souborů není potřeba zasahovat
 
 Veškerá komunikace je zajištěna přez mediatora

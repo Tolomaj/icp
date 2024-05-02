@@ -1,3 +1,5 @@
-# V této složce je veškeré gpropojení gui s simulací
+# Složka link
 
-pokud chcete využívat tento komunikační mostek, podívejte se do Testing_object.h ten obsahuje příklad jak vypadá přijímání eventů z gui/simulace.
+Obahsuje  zdílené zdroje mezi simulací a gui. je to jeiná část projektu kterou mají tyto dvě části společné
+
+Pokud chcete využívat tento komunikační mostek, podívejte se do Testing_object.h ten obsahuje implementované přijímání eventů z gui/simulace.

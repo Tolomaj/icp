@@ -1,7 +1,5 @@
 #include "mediator.hpp"
 
-
-
 Mediator &Mediator::get_instance() {
     static Mediator instance;
     return instance;

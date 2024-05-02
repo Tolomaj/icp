@@ -1,6 +1,11 @@
-/*
-/   Objekt který když je stvořený naslouchá všemu co se odehrává mezi gui a simualcí
-*/
+/*********************************************************************
+ * @file  Testing_object.hpp
+ * 
+ * @brief debugovací nástroj pro debugování komunikace mezi gui a simulací
+ *
+ * Odchytává správy poslané mediátorem avypisuje je pomocí qDebug na output
+ *
+ *********************************************************************/
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -28,7 +33,7 @@
 class Test_Probe : public QObject {
 Q_OBJECT
 
-public slots:
+protected slots:
     void tstFiles(FileOP operation, QString str){
         if(operation == SAVE){
             qDebug(QString("EVENT_PROBE saving to file: " + str).toStdString().c_str());
@@ -147,12 +152,6 @@ public slots:
 public:
 
 Test_Probe():QObject(){
-    qDebug("instancing");
-
-
-//
-
-
     Mediator::get_instance().subscribe_bot_controll(this, SLOT(tstControll(int, ControllComand)));
     Mediator::get_instance().subscribe_registartion(this, SLOT(tstregistration(ObjectType,int , int , int ,int ,int ,bool))); 
     Mediator::get_instance().subscribe_forvarded_registartion(this, SLOT(tstFWregistration(ObjectType,int))); 
@@ -161,7 +160,6 @@ Test_Probe():QObject(){
     Mediator::get_instance().subscribe_unregistration(this, SLOT(tstRemove(int)));
     Mediator::get_instance().subscribe_simulation_controll(this, SLOT(tstSimControll(SimuControll)));
     Mediator::get_instance().subscribe_load_save(this, SLOT(tstFiles(FileOP,QString)));
-    qDebug("done trigerng");
 }
 
 
