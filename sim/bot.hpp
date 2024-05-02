@@ -10,8 +10,6 @@ class Bot : public SceneObject{
 protected:
     Circle boady;
     Rect radar;
-    Point position;
-    int rotation;
     int view;
 
     bool move_and_colide(){
@@ -43,6 +41,11 @@ protected:
     }
 
 public:
+    
+    int get_view(){
+        return view;
+    }
+
 
     Bot(int id, Point position, int rotation, int view) : SceneObject(id){
         

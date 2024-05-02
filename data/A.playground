@@ -1,0 +1,22 @@
+#tento soubor obsahuje uloženou scénu, každý řádek reprezentuje jednu entitu ve formátu:
+#AI_BOT {X} {Y} {ROTATION} {SENCE_LENGHT} {COLIDE_ROTATION} {ROTATION_DIRECTION}
+#MAN_BOT {X} {Y} {ROTATION} {SENCE_LENGHT}
+#BOX {X} {Y} {ROTATION}
+# a samosebou řádek začínající # je ignorovaný, stejně jako řádek prázdný
+
+BOX 239 248 0
+BOX 659 248 0
+BOX 118 729 0
+BOX 248 854 0
+BOX 371 921 0
+BOX 521 926 0
+BOX 671 928 0
+BOX 800 854 0
+BOX 939 753 0
+BOX 494 532 0
+BOX 606 881 0
+BOX 447 874 0
+AI_BOT 636 636 83 50 20 LEFT
+AI_BOT 338 338 166 50 20 LEFT
+AI_BOT 551 551 220 50 20 LEFT
+AI_BOT 481 481 67 50 20 LEFT

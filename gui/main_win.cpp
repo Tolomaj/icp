@@ -6,6 +6,7 @@ void GUI_Window::open_file(){
         QDir::currentPath(),
         QObject::tr("Playground file (*.playground);;All files (*.*)"));
 
+    if(filename == ""){ return; }
     Mediator::get_instance().notify_send_save(LOAD,filename);
 }
 
@@ -14,6 +15,8 @@ void GUI_Window::save_file(){
         QObject::tr("Save playground file"),
         QDir::currentPath(),
         QObject::tr("Playground file (*.playground);;All files (*.*)"));
+
+    if(filename == ""){ return; }
     Mediator::get_instance().notify_send_save(SAVE,filename);
 }
 

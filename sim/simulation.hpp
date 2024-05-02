@@ -11,6 +11,7 @@
 #include "collision_administrator.hpp"
 #include "collision_engine/collider.hpp"
 #include "collision_engine/arena.hpp"
+#include "data_administrator.hpp"
 #include "bot.hpp"
 #include "MAN_Bot.hpp"
 #include "AI_bot.hpp"
@@ -26,6 +27,8 @@ Q_OBJECT
 private:
     QTimer *timer;
     vector<Bot*> list;
+    DataAdministrator data_administrator;
+
     
     int max_id = 0;//fixme dočasné na testování
     int index = 0;
@@ -61,10 +64,9 @@ public slots:
         }
     }
 
+
 void reqestEntity(ObjectType type,int x , int y , int rotation,int colide_rotation,int sence_lenght,bool rotation_direction){
-        //todo // tady bude registrace objektu do dat simulace
-        max_id++; //fixme dočasné na testování
-        //todo // a také vybírání volného id
+        max_id++;
 
         SceneObject * obj_r;
         Bot * obj;
@@ -87,22 +89,31 @@ void reqestEntity(ObjectType type,int x , int y , int rotation,int colide_rotati
                 break;
 
         }   
-        
+        data_administrator.registerObject(obj_r);
         ColisionAdministrator::get_instance().registerObject(obj_r);
     }
 
     void unregisterEntity(int id){
         
         list.erase(remove_if(begin(list), end(list), [id](SceneObject * u){
+            if(id == ALL){
+                return true;
+            }
             return u->get_id() == id;
         }), end(list));
 
+        data_administrator.unregisterObject(id);
         SceneObject * obj = ColisionAdministrator::get_instance().unregisterObject(id);
         if(obj != nullptr){
             delete obj;
+        } 
+
+        if (id == ALL){
+            max_id = 0;
         }
-        
     }
+
+
 
 public:
 

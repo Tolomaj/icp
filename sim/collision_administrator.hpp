@@ -34,12 +34,26 @@ public:
     }
 
     void registerObject(SceneObject * object){
+        for(SceneObject * u : list) {
+            if(u->get_id() == object->get_id()){
+                return; // id already used
+            }
+        }
+
         list.push_back(object);
     }
-    SceneObject * unregisterObject(int id){
 
-        list.erase(remove_if(begin(list), end(list), [id](SceneObject * u){
+    SceneObject * unregisterObject(int id, bool all_deleter = false){
+        SceneObject * returnVal = nullptr;
+        list.erase(remove_if(begin(list), end(list), [id,&returnVal,all_deleter](SceneObject * u){
+            if(id == ALL){
+                if(all_deleter){
+                    delete u;
+                }
+                return true;
+            }
             if(u->get_id() == id){
+                returnVal = u;
                 return true;
             }
             return false;

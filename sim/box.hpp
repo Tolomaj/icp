@@ -10,6 +10,8 @@ private:
     Rect rect;
 public:
     Box(int id,Point p , int h,int rotation) : SceneObject(id){
+        this->position = p;
+        this->rotation = rotation;
         float Arot = (0 - ((rotation/180.0) * PI)) + (PI)/4;
         float Brot = (0 - ((rotation/180.0) * PI)) - (PI)/4;
         int hs = sqrt(h*h+h*h) ;

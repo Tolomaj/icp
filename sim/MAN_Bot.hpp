@@ -2,6 +2,7 @@
 #include "bot.hpp"
 #include "../link/mediator.hpp"
 
+#pragma once
 
 class MANBot : public Bot{
 Q_OBJECT
