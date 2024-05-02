@@ -82,7 +82,6 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
     graphicsView = new QGraphicsView(centralWidget);
     graphicsView->viewport()->setCursor(Qt::BlankCursor);
     graphicsView->setMouseTracking(true);
-    //graphicsView->setAcceptHoverEvents(true);
     graphicsView->setScene(scene);
     graphicsView->setRenderHint(QPainter::Antialiasing);
     graphicsView->setBackgroundBrush(QPixmap("img/floor.jpg"));
@@ -133,18 +132,13 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
 
 
     verticalLayout_2->addLayout(horizontalLayout_3);
-
-
     horizontalLayout->addLayout(verticalLayout_2);
 
     QWidget * verticalWidget_2 = new QWidget(centralWidget);
-
     rightSide = new QVBoxLayout(verticalWidget_2);
 
     verticalWidget_2->setMaximumWidth(230);
-
     rightSide->setContentsMargins(0, 0, 0, 0);
-
 
     list = new List(this);
     rightSide->addWidget(list);
@@ -152,12 +146,6 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
 
     rightSide->addWidget(propertyPicker);
     
-
-
-
-
-
-
     QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();
     horizontalLayout_2->setSpacing(1);
     QLabel *label = new QLabel(verticalWidget_2);
@@ -173,9 +161,6 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
     comboBox->addItem(QString("DELETE"));
     connect(comboBox,SIGNAL(currentIndexChanged(const QString&)),this,SLOT(dropdown(const QString)));
 
-
-
-
     horizontalLayout_2->addWidget(comboBox);
     rightSide->addLayout(horizontalLayout_2);
     horizontalLayout->addWidget(verticalWidget_2);
@@ -183,7 +168,7 @@ GUI_Window::GUI_Window(QMainWindow *parent):QMainWindow(parent) {
     this->setCentralWidget(centralWidget);
 
     this->show();
-
+    Mediator::get_instance().subscribe_error_message(this, SLOT(message(QString)));
     FocusColector::get_instance().subscribe(this, SLOT(select(int)));
 }
 

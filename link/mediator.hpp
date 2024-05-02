@@ -77,6 +77,9 @@ public:
     // načtení nebo ukládíní simulace do souboru odebíráno v data
     void subscribe_load_save(QObject* subscriber, const char* slot);
 
+    // errová hláška
+    void subscribe_error_message(QObject* subscriber, const char* slot);
+
     void subscribe_DBG_draw_line(QObject* subscriber, const char* slot);
 
 signals:
@@ -100,6 +103,9 @@ signals:
 
     // ovládání z ui pro naštení nebo uložení soubou
     void notify_send_save(FileOP file_operation,QString path);
+
+    // ovládání z ui pro naštení nebo uložení soubou
+    void notify_error_message(QString path);
 
     // ovládání z ui pro naštení nebo uložení soubou
     void notify_DBG_draw_line(int x1, int y1, int x2,int y2,QColor color);
