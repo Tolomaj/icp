@@ -3,7 +3,7 @@
 #include "scene_object.hpp"
 #include "box.hpp"
 #include "AI_bot.hpp"
-#include "MAN_bot.hpp"
+#include "MAN_Bot.hpp"
 #include "collision_engine/collision_engine.hpp"
 #include <fstream>
 
