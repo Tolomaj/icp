@@ -7,5 +7,3 @@ Makefile
 .vscode
 .vscode/*
 docs/html/*
-
-icp24-robot-sim
