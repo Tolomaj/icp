@@ -10,7 +10,9 @@ Q_OBJECT
 protected:
     QLabel *entry_name;
     QHBoxLayout* layout;
+    ///id objektu se kterým je svázaný
     int object_id = 0;
+    ///je záznam vybrán
     bool selected = false;
 
 protected slots:
@@ -20,8 +22,9 @@ protected slots:
         Mediator::get_instance().notify_unregistration(object_id);
     }
 
+
     /**
-     * @brief funkce volaná když z mediátoru přijde správa o smazání
+     * @brief smaže záznam
      * 
      *  funkce filtruje aby byl smazán jen odpovídající záznam
      *  @param id id mazané entity (& záznamu se stejným id)
@@ -31,7 +34,13 @@ protected slots:
         delete this;
     }
 
-    
+
+    /**
+     * @brief vybere záznam
+     * 
+     *  funkce filtruje aby byl vybrán jen záznam s odpovídajícím id
+     *  @param id id vybírané entity (& záznamu se stejným id)
+     */
     void select(int id){
         if(id == object_id){
             this->setFrameStyle(QFrame::Panel | QFrame::Sunken);
@@ -45,12 +54,18 @@ protected slots:
     
 public: 
 
+    /// Vrátí id záznamu
     int get_id(){
         return object_id;
     }
 
 
-
+    /**
+     * @brief Vytvoří objekt záznamu a nastaví jeho parametry
+     * 
+     * @param parent předek pod který bude Qframe zaregistrován
+     * @param object_id id objektu který je se záznamem svázán
+     */
     Entry(QWidget *parent = 0,int object_id = 0):QFrame(parent) {
         this->object_id = object_id;
         layout = new QHBoxLayout(this);
@@ -76,6 +91,7 @@ public:
         FocusColector::get_instance().subscribe(this, SLOT(select(int)));
     }
 
+/// reakce na kliknutí (pošle přez focus colector id objektu které má být vybráno)
 void mousePressEvent(QMouseEvent * e)  {
    FocusColector::get_instance().focus_object(this->object_id);
 }

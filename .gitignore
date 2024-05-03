@@ -1,16 +1,12 @@
 # ====== Doxygen ====== #
-doc/
-
-# ====== Qt ====== #
-.qmake.stash
-Makefile
+# doc/ nesmí být ignorován kvlúli závyslostem
+doc/html
 
 # ====== Build files ====== #
 icp24-robot-sim
-moc_*
-*.o
 
 # ====== Misc ====== #
 poznamky.txt
 .vscode
 .vscode/*
+img
