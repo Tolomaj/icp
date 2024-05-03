@@ -3,6 +3,7 @@
 
 #pragma once
 
+/// @brief Entry : záznam v pravém panelu entit scény
 class Entry :public QFrame{ 
 Q_OBJECT
 
@@ -14,15 +15,23 @@ protected:
 
 protected slots:
 
+    /// funkce přiřazená tlačítku na smazání entity
     void removeButton_f(){
         Mediator::get_instance().notify_unregistration(object_id);
     }
 
+    /**
+     * @brief funkce volaná když z mediátoru přijde správa o smazání
+     * 
+     *  funkce filtruje aby byl smazán jen odpovídající záznam
+     *  @param id id mazané entity (& záznamu se stejným id)
+     */
     void remove_entry(int id){
         if(id != object_id && id != ALL){ return;};// call is not for ass
         delete this;
     }
 
+    
     void select(int id){
         if(id == object_id){
             this->setFrameStyle(QFrame::Panel | QFrame::Sunken);

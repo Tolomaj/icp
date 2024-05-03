@@ -30,10 +30,16 @@
 
 #pragma once
 
+/** @brief Test_Probe : Objekt na debug mediatoru
+ *
+ *  Odebírá signály a vypisuje je aby se dalo debugovat komunikaci přez mediator
+ *
+ */
 class Test_Probe : public QObject {
 Q_OBJECT
 
 protected slots:
+    ///Vypíše signál mediatoru spro načtení souboru
     void tstFiles(FileOP operation, QString str){
         if(operation == SAVE){
             qDebug(QString("EVENT_PROBE saving to file: " + str).toStdString().c_str());
@@ -43,6 +49,7 @@ protected slots:
         
     }
 
+    /// vypíše signál mediatoru pro ovládání simulace 
     void tstSimControll(SimuControll command){
         switch (command) {
         case RUN:
@@ -59,15 +66,17 @@ protected slots:
         } 
     }
 
+    ///Vypíše signál mediatoru pro odstranění entity
     void tstRemove(int id){
         qDebug((QString("EVENT_PROBE deleting object id: ") + QString::number(id)).toStdString().c_str());
     }
 
+    ///Vypíše signál mediatoru pro posunutí entity ve scéně
     void tstMove(int id,int x , int y , int r){
         qDebug((QString("EVENT_PROBE moving object id: ") + QString::number(id) + QString(" to ") + QString::number(x) + QString(",") + QString::number(y) + QString(",°")+ QString::number(r)).toStdString().c_str());
     }
     
-
+    ///Vypíše signál mediatoru pro změnu stavu robota
     void tstState(int id,RoboState state){
         switch (state) {
             case STOPED:
@@ -87,6 +96,7 @@ protected slots:
         } 
     };
 
+    ///Vypíše signál mediatoru pro fiální registraci objektu do scény
     void tstFWregistration(ObjectType bject,int id){
         switch (bject) {
             case AI_ROBOT:
@@ -103,6 +113,7 @@ protected slots:
         } 
     } 
 
+    ///Vypíše signál mediatoru pro požadavek na registraci entity do simulace
     void tstregistration(ObjectType bject,int x , int y , int rotation,int colide_rotation,int sence_lenght,bool rotation_direction){
         QString s;
         switch (bject) {
@@ -133,6 +144,7 @@ protected slots:
         } 
     } 
 
+    ///Vypíše signál mediatoru pro kontrolu pohybu robota
     void tstControll(int id ,ControllComand bject){
         switch (bject) {
             case LEFT:
@@ -151,6 +163,7 @@ protected slots:
 
 public:
 
+///Vytvoření objektu a přiřazení funkcí k signálům
 Test_Probe():QObject(){
     Mediator::get_instance().subscribe_bot_controll(this, SLOT(tstControll(int, ControllComand)));
     Mediator::get_instance().subscribe_registartion(this, SLOT(tstregistration(ObjectType,int , int , int ,int ,int ,bool))); 

@@ -14,5 +14,5 @@
 #define ARENA_SIZE_X 1000
 #define ARENA_SIZE_Y 1000
 
-#define DEBUG_DAW true
+#define DEBUG_DAW false
 #define DEBUG_SAY true
