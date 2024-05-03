@@ -1,6 +1,7 @@
 /*********************************************************************
  * @file  simu_info.hpp
- * 
+ * @author Ondřej Gross (xgross13)
+ *
  * @brief konfigurace projektu
  * obsahuje zdílené nastavení mezi simulací a gui
  *********************************************************************/

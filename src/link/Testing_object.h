@@ -1,5 +1,6 @@
 /*********************************************************************
  * @file  Testing_object.hpp
+ * @author Ondřej Gross (xgross13)
  * 
  * @brief debugovací nástroj pro debugování komunikace mezi gui a simulací
  *

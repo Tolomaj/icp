@@ -1,7 +1,11 @@
-/*
-* Tento soubor obsahuje veškeré externí zavyslosti.
-* je to jediný soubor ve kterém provádějte změny když dojde k porušení závyslostí knihoven
-*/
+/*********************************************************************
+ * @file libs.h
+ * @author Ondřej Gross (xgross13)
+ *
+ * @brief Tento soubor obsahuje veškeré externí zavyslosti.
+ *
+ * je to jediný soubor ve kterém provádějte změny když dojde k porušení závyslostí knihoven
+*********************************************************************/
 
 #ifndef GUI_LIBS_FILE_WIN_H
 #define GUI_LIBS_FILE_WIN_H

@@ -1,3 +1,11 @@
+/*********************************************************************
+ * @file collision_engine.hpp
+ * @author Ondřej Gross (xgross13)
+ * @author Tomáš Foltyn (xfolty21)
+ *
+ * @brief  Objekt zajišťujcí kolize mezi základními geometrickými útvary 
+ *********************************************************************/
+
 #include <QDebug>
 #include "b_shapes.h"
 #include "collider.hpp"
@@ -154,7 +162,7 @@ private:
         return false;
     }
 
-Point scalePointToLength(Point& vec, double newLength) {
+    Point scalePointToLength(Point& vec, double newLength) {
         double currentLength = vec.vector_lenght();
         double scaleFactor = newLength / currentLength;
         return {vec.x * scaleFactor, vec.y * scaleFactor};

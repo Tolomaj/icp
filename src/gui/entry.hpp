@@ -1,9 +1,20 @@
+/*********************************************************************
+ * @file entry.hpp
+ * @author Ondřej Gross (xgross13)
+ *
+ * @brief Záznam v listu který má tlačítko na smazání danné entity, je základem pro ai_entry a bot_entry
+*********************************************************************/
 #include "libs.h"
 #include "focus_colector.hpp"
 
 #pragma once
 
-/// @brief Entry : záznam v pravém panelu entit scény
+
+/**
+* @brief Entry : záznam v pravém panelu entit scény
+* 
+* Spolu s tím přidává tlačítlo na mazání objektu a drží v sobe id objektu ke kterému patří
+*/
 class Entry :public QFrame{ 
 Q_OBJECT
 

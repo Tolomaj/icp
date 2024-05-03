@@ -1,3 +1,11 @@
+/*********************************************************************
+ * @file list.hpp
+ * @author Ondřej Gross (xgross13)
+ *
+ * @brief List záznamů objektů které se nachází ve scéně
+ *
+*********************************************************************/
+
 #include "libs.h"
 
 #include "../link/mediator.hpp"
@@ -5,7 +13,7 @@
 #include "bot_entry.hpp"
 #include "ai_entry.hpp"
 
-// makro prevence hlášení nepužité proměnné
+/// makro prevence hlášení nepužité proměnné
 #define UNUSED(x) (void)(x)
 #define NONE -1
 
@@ -13,19 +21,24 @@ class List :public QScrollArea{
 Q_OBJECT
 
 
-public:
-
-    virtual ~List() {}; // https://stackoverflow.com/questions/14010922/qt-undefined-reference-to-vtable
-
 private:
     QWidget * parent;
     QWidget* entryes;
-    Mediator mediator;
 
 public slots:
+
+    /**
+     * @brief Přidá záznam entity do listu
+     * 
+     * @param type typ objektu pro který vytváříme záznam (ovlivňuje jaký záznam bude vytvořen)
+     * @param i id objektu kterému záznam patří
+     * @param x [není použit]
+     * @param y [není použit]
+     * @param r [není použit]
+     */
     void add_entry(ObjectType type, int i, int x, int y, int r){
 
-        // protože jde o signál jsou zde naví parametry
+        // protože jde o signál jsou zde navíc parametry
         UNUSED(x); UNUSED(y); UNUSED(r);
 
         switch (type) {
@@ -44,7 +57,11 @@ public slots:
 
 public: 
 
-
+    /**
+     * @brief Vytvoří list a nastaví jeho vzhled
+     * 
+     * @param parent rodič kterému poté budou přiřazen záznamy
+     */
     List(QWidget *parent = 0):QScrollArea(parent) {
         this->parent = parent;
 
