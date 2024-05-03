@@ -1,9 +1,16 @@
-moc_*
-main
-*.o
-poznamky.txt
+# ====== Doxygen ====== #
+doc/
+
+# ====== Qt ====== #
 .qmake.stash
 Makefile
+
+# ====== Build files ====== #
+icp24-robot-sim
+moc_*
+*.o
+
+# ====== Misc ====== #
+poznamky.txt
 .vscode
 .vscode/*
-docs/html/*

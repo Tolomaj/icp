@@ -1,0 +1,9 @@
+moc_*
+main
+*.o
+poznamky.txt
+.qmake.stash
+Makefile
+.vscode
+.vscode/*
+docs/html/*
