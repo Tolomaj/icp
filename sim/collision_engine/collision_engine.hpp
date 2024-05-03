@@ -116,23 +116,29 @@ private:
         int lx = (lb.x - la.x)*200;
         int ly = (lb.y - la.y)*200;
 
-        //dbg Mediator::get_instance().notify_DBG_draw_line(la.x - lx, la.y  - ly, lb.x + lx ,lb.y + ly,Qt::white);
+        #if DEBUG_DAW
+        Mediator::get_instance().notify_DBG_draw_line(la.x - lx, la.y  - ly, lb.x + lx ,lb.y + ly,Qt::white);
+        #endif
 
         Point pa = project(la,lb,B->a());
         Point pb = project(la,lb,B->b());
         Point pc = project(la,lb,B->c());
         Point pd = project(la,lb,B->d());
         if(points_colide_line(pa,pb,pc,pd,Line(la,lb))){
-        /*//dbg Mediator::get_instance().notify_DBG_draw_line(pa.x, pa.y, pa.x, pa.y,QColorConstants::Svg::red);
+            #if DEBUG_DAW
+            Mediator::get_instance().notify_DBG_draw_line(pa.x, pa.y, pa.x, pa.y,QColorConstants::Svg::red);
             Mediator::get_instance().notify_DBG_draw_line(pb.x, pb.y, pb.x, pb.y,QColorConstants::Svg::red);
             Mediator::get_instance().notify_DBG_draw_line(pc.x, pc.y, pc.x, pc.y,QColorConstants::Svg::red);
-            Mediator::get_instance().notify_DBG_draw_line(pd.x, pd.y, pd.x, pd.y,QColorConstants::Svg::red);*/
+            Mediator::get_instance().notify_DBG_draw_line(pd.x, pd.y, pd.x, pd.y,QColorConstants::Svg::red);
+            #endif
             return true;
         }else{
-        /*//dbgMediator::get_instance().notify_DBG_draw_line(pa.x, pa.y, pa.x, pa.y,QColorConstants::Svg::magenta);
+            #if DEBUG_DAW
+            Mediator::get_instance().notify_DBG_draw_line(pa.x, pa.y, pa.x, pa.y,QColorConstants::Svg::magenta);
             Mediator::get_instance().notify_DBG_draw_line(pb.x, pb.y, pb.x, pb.y,QColorConstants::Svg::magenta);
             Mediator::get_instance().notify_DBG_draw_line(pc.x, pc.y, pc.x, pc.y,QColorConstants::Svg::magenta);
-            Mediator::get_instance().notify_DBG_draw_line(pd.x, pd.y, pd.x, pd.y,QColorConstants::Svg::magenta);*/
+            Mediator::get_instance().notify_DBG_draw_line(pd.x, pd.y, pd.x, pd.y,QColorConstants::Svg::magenta);
+            #endif
             return false;
         }
     }
@@ -148,8 +154,79 @@ private:
         return false;
     }
 
+Point scalePointToLength(Point& vec, double newLength) {
+        double currentLength = vec.vector_lenght();
+        double scaleFactor = newLength / currentLength;
+        return {vec.x * scaleFactor, vec.y * scaleFactor};
+    }
+
     bool collide_rect_circle(Circle * A,Rect * B){
-        //TODO !!
+        std::array<Point, 4> points = {B->a(), B->b(), B->c(), B->d()};
+
+        // sort poins by y
+        std::sort(points.begin(), points.end(), [](Point a, Point b){
+            return a.y < b.y;
+        });
+
+        std::array<Line, 4> lines = {Line(points[0], points[1]), Line(points[0], points[2]), Line(points[1], points[3]), Line(points[2], points[3])};
+
+        // represents if rim of circle is past a respective line
+        std::array<bool, 4> rimIsPastLine = {false, false, false, false};
+        // represents if center of circle is past a respective line
+        std::array<bool, 4> centerIsPastLine = {false, false, false, false};
+
+        for (size_t i = 0; i < 4; i++){
+            if (lines[i].b.x < lines[i].a.x){
+                std::swap(lines[i].a, lines[i].b);
+            }
+            float lx = (lines[i].b.x - lines[i].a.x)*20;
+            float ly = (lines[i].b.y - lines[i].a.y)*20;
+
+            #if DEBUG_DAW
+            Mediator::get_instance().notify_DBG_draw_line(lines[i].a.x - lx, lines[i].a.y  - ly, lines[i].b.x + lx ,lines[i].b.y + ly,Qt::white);
+            #endif
+
+            float fa = ly / lx;
+            float fb = lines[i].a.y - fa * lines[i].a.x;
+
+            Point per_vec(-ly, lx);
+            // bottom two lines (indexes 2, 3) need to use the other perpendicular vector
+            if (i > 1) per_vec = Point(ly, -lx);
+
+            // scale the vector to be the same length as the radius
+            per_vec = scalePointToLength(per_vec, A->radius());
+
+            // calculate the point on the circle rim
+            Point circleRim = A->center() + per_vec;
+            
+            // get the distance of the circle rim from the line
+            auto rimDiff = circleRim.y - (fa * circleRim.x + fb);
+            // if the distance is positive for top two lines (0, 1), or negative for bottom two lines (2, 3), the circle rim is past the line
+            rimIsPastLine[i] = i < 2 ? rimDiff > 0 : rimDiff < 0;
+            
+            // same for the center of the circle
+            auto centerDiff = A->center().y - (fa * A->center().x + fb);
+            centerIsPastLine[i] = i < 2 ? centerDiff > 0 : centerDiff < 0;
+
+            #if DEBUG_DAW
+            Mediator::get_instance().notify_DBG_draw_line(A->center().x, A->center().y, circleRim.x, circleRim.y, !centerIsPastLine[i] ? rimIsPastLine[i] ? Qt::yellow : Qt::green : Qt::red);
+            #endif
+
+        }
+        if(rimIsPastLine[0] && rimIsPastLine[1] && rimIsPastLine[2] && rimIsPastLine[3]){
+            return true;
+        } else {
+            // if at least two centerIsPastLine is false, the circle is at a corner
+            if(centerIsPastLine[0] + centerIsPastLine[1] + centerIsPastLine[2] + centerIsPastLine[3] < 3){
+                for (size_t i = 0; i < 4; i++){
+                    // if point is inside circle
+                    if((A->center() - points[i]).vector_lenght() <= A->radius()){
+                        return true;
+                    }
+                }
+            }
+        }
+    
         return false;
     }
 
