@@ -19,6 +19,7 @@
 
 class Scene;
 
+///GUI_Window : Objekt hlavního okna vytváří hlavní rozložení ovladacích prvků.
 class GUI_Window: public QMainWindow { 
 Q_OBJECT
 
@@ -97,9 +98,10 @@ public:
      */
     GUI_Window(QMainWindow *parent = 0);
 
-    
+    /// event když okno je vytvořeno / řeší zvětšování a zmenšování objektů okna
     void showEvent(QShowEvent *);
 
+    /// event když okno je zmenšeno nebo zvětšeno / řeší zvětšování a zmenšování objektů okna
     void resizeEvent(QResizeEvent* event);
 
 

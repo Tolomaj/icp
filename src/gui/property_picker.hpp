@@ -1,21 +1,42 @@
+/*********************************************************************
+ * @file property_picker.hpp
+ * @author Ondřej Gross (xgross13)
+ *
+ * @brief objekt nastavování vkládaných entit do scény
+ *
+*********************************************************************/
+
 #include "libs.h"
 
 #include "signed_slider.hpp"
 
 #pragma once
 
-
+///PropertyPicker : objekt nastavování vkládaných entit do scény
 class PropertyPicker :public QFrame{ 
 Q_OBJECT
+    ///slider pro vybírání rotace po nárazu vlkádaného robota
     SignedSlider * colision_rotation;
+    ///slider pro vybírání dohledu robta
     SignedSlider * bot_sense;
-    SignedSlider * bot_rotartion;
+    ///slider pro vybírání rotace vkládaného objektu
+    SignedSlider * rotation;
+    /// vybírač směru rotace při nárazu
     QComboBox *comboBox;
+
+    ///polisek co se vybírá
     QLabel *labelc;
 
+    /// proměnná vekteré se ukládá kam se robot bude otáčet po rotaci, aby se správně vykreslovala čára rotace
     bool colision_rotation_direction = true;
 
 protected slots:
+
+/**
+ * @brief handler vybírání směru rotace nastavuje proměnnou kam se otáčí robot při nárazu
+ * 
+ * @param string název položky "DOPRVA" / "DOLEVA"
+ */
 void dropdown(QString string){
     if(string == QLatin1String("DOPRVA")){
         colision_rotation_direction = true;
@@ -26,23 +47,32 @@ void dropdown(QString string){
 
 public: 
 
-
+    /// vrátí jak je nastavený slider rotace
     int get_rotation(){
-        return bot_rotartion->getValue();
+        return rotation->getValue();
     }
 
+    /// vrátí nastavenou hodnotu rotace po kolizi
     int get_colide_rotation(){
         return colision_rotation->getValue();
     }  
 
+    /// vrátí nastavenou hodnotu dohledu robta
     int get_bot_vision(){
         return bot_sense->getValue();
     }  
 
+    /// vrátí nastavený směr rotace
     bool get_rotation_direction(){
         return colision_rotation_direction;
     }  
 
+    /**
+     * @brief nastaví co vše se v pickovacím menu ukazje
+     * 
+     * @param full (true) ukáže celé menu
+     * @param not_rotation (true) schová vše krom rotace v menu
+     */
     void setFullMode(bool full, bool not_rotation = false){ // rotation only / full // or full without auto rotation
         if(full){
             if(not_rotation){
@@ -64,15 +94,19 @@ public:
     }
 
 
-
+    /**
+     * @brief vytvoření widgetu vybírání parametrů
+     * 
+     * @param parent widget ke kterému menu přidat
+     */
     PropertyPicker(QWidget *parent = 0):QFrame(parent) {
         QVBoxLayout * pickerSection = new QVBoxLayout(this);
         this->setFrameStyle(QFrame::Panel | QFrame::Sunken);
         
-
+        // vytvoření hejblátek
         colision_rotation = new SignedSlider(this, "Rotace při nárazu:",360,20);
         bot_sense = new SignedSlider(this, "Dohled bota:",200,BOT_SIZE/2 + 20,BOT_SIZE/2 + 1);
-        bot_rotartion = new SignedSlider(this, "Rotace:",360);
+        rotation = new SignedSlider(this, "Rotace:",360);
 
         QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(1);
@@ -88,11 +122,9 @@ public:
         pickerSection->addLayout(horizontalLayout_2);
         pickerSection->addWidget((QWidget *)colision_rotation);
         pickerSection->addWidget((QWidget *)bot_sense);
-        pickerSection->addWidget((QWidget *)bot_rotartion);
+        pickerSection->addWidget((QWidget *)rotation);
 
         connect(comboBox,SIGNAL(currentIndexChanged(const QString&)),this,SLOT(dropdown(const QString)));
-
     }
-
 
 };

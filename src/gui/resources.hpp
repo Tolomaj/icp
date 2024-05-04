@@ -1,5 +1,14 @@
+/*********************************************************************
+ * @file resources.hpp
+ * @author Ondřej Gross (xgross13)
+ *
+ * @brief objekt který načítá obrázky aby aplikace nezabírala tak moc paměti ram
+ *
+*********************************************************************/
+
 #include <QObject>
 
+/// enum typu zdroje (v tomto případe typ obrázku)
 enum RESOURCE_INTERNAL_TYPE{
     AI_BOT_SELECTED_T,
     AI_BOT_T,
@@ -9,18 +18,21 @@ enum RESOURCE_INTERNAL_TYPE{
     BOX_T
 };
 
-// this is singleton fly wheel object containning all textures used by bots and boxes
+/// SceneResources : Singleton obsahující načtené obrázky je implemntace flywheel. Obsahuje textury pro boty a bedny
 class SceneResources : QObject {
 private:
     QPixmap textures[6];
 public:
 
-    // disable copy/move -- this is a Singleton
+    ///@cond z objektu vytvoří singletron 
     SceneResources(const SceneResources&) = delete;
     SceneResources(SceneResources&&) = delete;
     SceneResources& operator=(const SceneResources&) = delete;
     SceneResources& operator=(SceneResources&&) = delete;
+    virtual ~SceneResources(){};
+    /// @endcond
 
+    /// konstruktor který načte všechy soubory a uloží si je
     SceneResources() : QObject(){
         textures[AI_BOT_SELECTED_T] = QPixmap("img/ai_bot-sel.png").scaled(QSize(BOT_SIZE, BOT_SIZE));
         textures[AI_BOT_T] = QPixmap("img/ai_bot.png").scaled(QSize(BOT_SIZE, BOT_SIZE));
@@ -31,17 +43,15 @@ public:
         
     };
 
+    /// vrátí texturu (protože QT textura je jen odkazem)
     QPixmap get_Texture(RESOURCE_INTERNAL_TYPE type){
         return textures[type];
     }
 
-    virtual ~SceneResources(){};
-        
+    /// vrátí instanci aby se dali volat funkce
     static SceneResources &get_instance() {
         static SceneResources instance;
         return instance;
     }
-
-
 
 };

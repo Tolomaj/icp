@@ -11,6 +11,11 @@
 /// makro které říká že nic nemá být označeno
 #define NONE -1
 
+/** @brief FocusColector : singleton který dává vědět scéně které objěkty a záznamy označit
+ *
+ *  Přez tento objekt se posílají informace o tom který objekt scény má být označený, jak už ze scény nebo z listu
+ *
+ */
 class FocusColector : public QObject {
 Q_OBJECT
 public:

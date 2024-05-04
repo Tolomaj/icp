@@ -17,6 +17,7 @@
 #define UNUSED(x) (void)(x)
 #define NONE -1
 
+/// @brief List : Prvek okna ucovávající všechny záznamy o objektech ve scéně
 class List :public QScrollArea{ 
 Q_OBJECT
 
