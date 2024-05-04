@@ -1,3 +1,10 @@
+/*********************************************************************
+ * @file data_administrator.hpp
+ * @author Tomáš Foltyn (xfolty21)
+ *
+ * @brief Definice třídy DataAdministrator, která se stará o ukládání a načítání scény.
+ *********************************************************************/
+
 #include <QObject>
 #include <vector>
 #include "scene_object.hpp"
@@ -12,35 +19,52 @@ class Bot;
 #pragma once
 using namespace std;
 
-
+/**
+ * @class DataAdministrator
+ * @brief Stará se o ukládání a načítání scény.
+ * 
+ * Udržuje seznam všech objektů. Umožňuje zaregistrovat nový objekt a načíst nebo uložit scénu.
+ */
 class DataAdministrator : public QObject {
 Q_OBJECT
+    /// Seznam všech objektů.
     vector<SceneObject*> list;
 
 private:
-
-// odstraní mezery ze startu
-inline void ltrim(std::string &s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) {
-        return !std::isspace(ch);
-    }));
-}
+    /**
+     * @brief Odstraní mezery ze začátku řetězce.
+     * @param s Řetězec, ze kterého se mají odstranit mezery.
+     */
+    inline void ltrim(std::string &s) {
+        s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) {
+            return !std::isspace(ch);
+        }));
+    }
 
 
 public:
-
+    /**
+     * @brief Registruje nový objekt.
+     * @param Instance Objekt, který se má zaregistrovat.
+     */
     void registerObject(SceneObject * object){
         for(SceneObject * u : list) {
-            if(u->get_id() == object->get_id()){ return; } // id already used
+            if(u->get_id() == object->get_id()){ qDebug("nelze pridat"); return; } // id already used
         }
         list.push_back(object);
     }
 
-    SceneObject * unregisterObject(int id, bool all_deleter = false){
+    /**
+     * @brief Odregistruje objekt.
+     * @param id ID objektu, který se má odregistrovat. Pokud je ALL, odregistruje všechny objekty.
+     * @param delete_all Pokud je true, dealokuje všechny objekty.
+     * @return Odregistrovaný objekt.
+     */
+    SceneObject * unregisterObject(int id, bool delete_all = false){
         SceneObject * returnVal = nullptr;
-        list.erase(remove_if(begin(list), end(list), [id,&returnVal,all_deleter](SceneObject * u){
+        list.erase(remove_if(begin(list), end(list), [id,&returnVal,delete_all](SceneObject * u){
             if(id == ALL){
-                if(all_deleter){
+                if(delete_all){
                     delete u;
                 }
                 return true;
@@ -51,15 +75,18 @@ public:
             }
             return false;
         }), end(list));
-        return nullptr;
+        return returnVal;
     }
 
-
-    // převede parametr na číslo
+    /**
+     * @brief Převede parametr na číslo.
+     * @param str Parametr.
+     * @return Číslo.
+     */
     int resolveParam(string str){
-        if(str == "LEFT"){
+        if(str.substr(0, 4) == "LEFT"){
             return 0;
-        }else if(str == "RIGHT"){
+        }else if(str.substr(0, 5) == "RIGHT"){
             return 1;
         }else{
             try {
@@ -71,7 +98,13 @@ public:
         }
     }
 
+    /**
+     * @brief Načte scénu ze souboru.
+     * @param path Cesta k souboru.
+     * @return True, pokud se podařilo načíst scénu, jinak false.
+     */
     bool load(std::string path){
+        Mediator::get_instance().notify_simulation_controll(STOP);
         ifstream inputFile(path); 
         if(inputFile.fail()){
             Mediator::get_instance().notify_error_message(QString("Nemohu načíst soubor"));
@@ -132,6 +165,11 @@ public:
         return true;
     }
 
+    /**
+     * @brief Uloží scénu do souboru.
+     * @param path Cesta k souboru.
+     * @return True, pokud se podařilo uložit scénu, jinak false.
+     */
     bool save(std::string path){
         ofstream myfile;
         myfile.open(path);
@@ -150,7 +188,7 @@ public:
 
             switch (u->get_type()){
             case AI_ROBOT:
-                myfile << "AI_BOT " << ((AIBot*)u)->get_position().x << " " << ((AIBot*)u)->get_position().x << " "
+                myfile << "AI_BOT " << ((AIBot*)u)->get_position().x << " " << ((AIBot*)u)->get_position().y << " "
                        << ((AIBot*)u)->get_rotation() << " " << ((AIBot*)u)->get_view() << " " << ((AIBot*)u)->get_collide_rotation_angle() << " "
                        << (((AIBot*)u)->get_rotation_direction() ? "RIGHT" : "LEFT")<< endl;
                 break;
@@ -167,7 +205,12 @@ public:
     }
 
 public slots:
-
+    
+    /**
+     * @brief Provede operaci souboru.
+     * @param file_operation Operace.
+     * @param path Cesta k souboru.
+     */
     void file_op(FileOP file_operation,QString path){
         if(file_operation == SAVE){
             save(path.toStdString());

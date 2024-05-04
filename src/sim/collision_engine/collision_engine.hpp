@@ -1,9 +1,8 @@
 /*********************************************************************
  * @file collision_engine.hpp
- * @author Ondřej Gross (xgross13)
  * @author Tomáš Foltyn (xfolty21)
  *
- * @brief  Objekt zajišťujcí kolize mezi základními geometrickými útvary 
+ * @brief Definuje třídu CollisionEngine, která řeší detekci kolicí veškerých kombinací kolizních objektů.
  *********************************************************************/
 
 #include <QDebug>
@@ -16,10 +15,20 @@
 
 #pragma once
 
+/**
+ * @class CollisionEngine
+ * @brief Třída řešící detekci kolizí veškerých kombinací kolizních objektů.
+ *
+ */
 class CollisionEngine{
 private:
-
-    bool collide_arena_rect(Arena * A, Rect * B){
+    /**
+     * @brief Detekuje kolizi mezi obdélníkem a arénou.
+     * @param A Aréna.
+     * @param B Obdélník.
+     * @return True, pokud došlo ke kolizi, jinak false.
+     */
+    static bool collide_arena_rect(Arena * A, Rect * B){
 
         if(B->a().x < 0 || B->a().y < 0 || B->a().x > A->getWidth() || B->a().y > A->getHeight()){
             return true;
@@ -37,7 +46,13 @@ private:
         return false;
     }
 
-    bool collide_arena_circle(Arena * A, Circle * B){
+    /**
+     * @brief Detekuje kolizi mezi kruhem a arénou.
+     * @param A Aréna.
+     * @param B Kruh.
+     * @return True, pokud došlo ke kolizi, jinak false.
+     */
+    static bool collide_arena_circle(Arena * A, Circle * B){
 
         if(B->center().x < BOT_SIZE/2 || B->center().y < BOT_SIZE/2 || B->center().x > A->getWidth() - BOT_SIZE/2 || B->center().y > A->getHeight() - BOT_SIZE/2){
             return true;
@@ -46,7 +61,13 @@ private:
         return false;
     }
 
-    bool collide_circle_circle(Circle * A, Circle * B){
+    /**
+     * @brief Detekuje kolizi mezi dvěma kruhy.
+     * @param A První kruh.
+     * @param B Druhý kruh.
+     * @return True, pokud došlo ke kolizi, jinak false.
+     */
+    static bool collide_circle_circle(Circle * A, Circle * B){
 
         int min_distance = A->radius() + B->radius();
         Point vector = A->center() - B->center();
@@ -59,9 +80,12 @@ private:
         return false;
     }
 
-
-    // vrátí znaménko císla (1 , -1)
-    int dir_sign(Point p){
+    /**
+     * @brief Počítá znaménko vektoru.
+     * @param p Vektor.
+     * @return Znaménko vektoru (1 , -1).
+     */
+    static int dir_sign(Point p){
         if(p.x == 0){
             return (p.y > 0) - (p.y < 0);
         }else{
@@ -69,8 +93,14 @@ private:
         }        
     }
 
-    // vrátí pozici bodu projektnutého na přímku
-    Point project(Point a, Point b, Point p){
+    /**
+     * @brief Počítá projekci bodu na přímku.
+     * @param a Počáteční bod přímky.
+     * @param b Koncový bod přímky.
+     * @param p Bod, který se má projektnout.
+     * @return Pozice bodu projektnutého na přímku.
+     */
+    static Point project(Point a, Point b, Point p){
         double lx = (b.x - a.x)*200;
         double ly = (b.y - a.y)*200;
 
@@ -83,8 +113,16 @@ private:
         return Point((int)ox + a.x,(int)oy + a.y);
     }
 
-    // vrátí jestli body kolidují s linkou
-    bool points_colide_line(Point a, Point b, Point c, Point d, Line l){ 
+    /**
+     * @brief Jistí, jestli body kolidují s přímkou.
+     * @param a První bod.
+     * @param b Druhý bod.
+     * @param c Třetí bod.
+     * @param d Čtvrtý bod.
+     * @param l Přímka.
+     * @return True, pokud došlo ke kolizi, jinak false.
+     */
+    static bool points_colide_line(Point a, Point b, Point c, Point d, Line l){ 
         Point vectorA[3];      
         vectorA[0] =  b - a;
         vectorA[1] =  c - a;
@@ -120,7 +158,14 @@ private:
         return true;
     }
 
-    bool collide_side_of_rect(Point la,Point lb, Rect * B){
+    /**
+     * @brief Detekuje kolizi mezi přímkou a obdélníkem. Používá se pro detekci kolize mezi dvěma obdélníky.
+     * @param la Počáteční bod přímky.
+     * @param lb Koncový bod přímky.
+     * @param B Obdélník.
+     * @return True, pokud došlo ke kolizi, jinak false.
+     */
+    static bool collide_side_of_rect(Point la,Point lb, Rect * B){
         int lx = (lb.x - la.x)*200;
         int ly = (lb.y - la.y)*200;
 
@@ -151,7 +196,13 @@ private:
         }
     }
 
-    bool collide_rect_rect(Rect * A,Rect * B){
+    /**
+     * @brief Detekuje kolizi mezi dvěma obdélníky.
+     * @param A První obdélník.
+     * @param B Druhý obdélník.
+     * @return True, pokud došlo ke kolizi, jinak false.
+     */
+    static bool collide_rect_rect(Rect * A,Rect * B){
         if(collide_side_of_rect(B->b(),B->a(),A) &&
         collide_side_of_rect(B->d(),B->a(),A)    &&
         collide_side_of_rect(A->b(),A->a(),B)    &&
@@ -162,25 +213,37 @@ private:
         return false;
     }
 
-    Point scalePointToLength(Point& vec, double newLength) {
+    /**
+     * @brief Změní délku vektoru.
+     * @param vec Vektor.
+     * @param newLength Nová délka.
+     * @return Vektor s novou délkou.
+     */
+    static Point scalePointToLength(Point& vec, double newLength) {
         double currentLength = vec.vector_lenght();
         double scaleFactor = newLength / currentLength;
         return {vec.x * scaleFactor, vec.y * scaleFactor};
     }
 
-    bool collide_rect_circle(Circle * A,Rect * B){
+    /**
+     * @brief Detekuje kolizi mezi kruhem a obdélníkem.
+     * @param A Kruh.
+     * @param B Obdélník.
+     * @return True, pokud došlo ke kolizi, jinak false.
+     */
+    static bool collide_rect_circle(Circle * A,Rect * B){
         std::array<Point, 4> points = {B->a(), B->b(), B->c(), B->d()};
 
-        // sort poins by y
+        // Seřadí body podle y-ové souřadnice.
         std::sort(points.begin(), points.end(), [](Point a, Point b){
             return a.y < b.y;
         });
 
         std::array<Line, 4> lines = {Line(points[0], points[1]), Line(points[0], points[2]), Line(points[1], points[3]), Line(points[2], points[3])};
 
-        // represents if rim of circle is past a respective line
+        // Určuje, zda je okraj kruhu za přímkou.
         std::array<bool, 4> rimIsPastLine = {false, false, false, false};
-        // represents if center of circle is past a respective line
+        // Určuje, zda je střed kruhu za přímkou.
         std::array<bool, 4> centerIsPastLine = {false, false, false, false};
 
         for (size_t i = 0; i < 4; i++){
@@ -198,21 +261,21 @@ private:
             float fb = lines[i].a.y - fa * lines[i].a.x;
 
             Point per_vec(-ly, lx);
-            // bottom two lines (indexes 2, 3) need to use the other perpendicular vector
+            // Spodní dvě přímky (indexy 2, 3) potřebují použít opačný kolmý vektor.
             if (i > 1) per_vec = Point(ly, -lx);
 
-            // scale the vector to be the same length as the radius
+            // Změní délku vektoru na poloměr kruhu.
             per_vec = scalePointToLength(per_vec, A->radius());
 
-            // calculate the point on the circle rim
+            // Spočítá bod na okraji kruhu.
             Point circleRim = A->center() + per_vec;
             
-            // get the distance of the circle rim from the line
+            // Vzdálenost okraje kruhu od přímky.
             auto rimDiff = circleRim.y - (fa * circleRim.x + fb);
-            // if the distance is positive for top two lines (0, 1), or negative for bottom two lines (2, 3), the circle rim is past the line
+            // Pokud je vzdálenost kladná pro horní dvě přímky (0, 1) nebo záporná pro dolní dvě přímky (2, 3), okraj kruhu je za přímkou.
             rimIsPastLine[i] = i < 2 ? rimDiff > 0 : rimDiff < 0;
             
-            // same for the center of the circle
+            // To stejné pro střed kruhu.
             auto centerDiff = A->center().y - (fa * A->center().x + fb);
             centerIsPastLine[i] = i < 2 ? centerDiff > 0 : centerDiff < 0;
 
@@ -224,10 +287,10 @@ private:
         if(rimIsPastLine[0] && rimIsPastLine[1] && rimIsPastLine[2] && rimIsPastLine[3]){
             return true;
         } else {
-            // if at least two centerIsPastLine is false, the circle is at a corner
+            // Pokud je centerIsPastLine alespoň dvakrát false, kruh je v rohu.
             if(centerIsPastLine[0] + centerIsPastLine[1] + centerIsPastLine[2] + centerIsPastLine[3] < 3){
                 for (size_t i = 0; i < 4; i++){
-                    // if point is inside circle
+                    // Pokud je rohový bod uvnitř kruhu.
                     if((A->center() - points[i]).vector_lenght() <= A->radius()){
                         return true;
                     }
@@ -240,9 +303,14 @@ private:
 
 
 public:
-
-    bool collide(Colider * A, Colider * B){
-        // border colisions
+    /**
+     * @brief Detekuje kolizi mezi dvěma kolizními objekty.
+     * @param A První kolizní objekt.
+     * @param B Druhý kolizní objekt.
+     * @return True, pokud došlo ke kolizi, jinak false.
+     */
+    static bool does_collide(Colider * A, Colider * B){
+        // Kolize s okrajem arény.
         if (A->getType() == ARENA && B->getType() == RECT){
             return (collide_arena_rect((Arena*)A,(Rect*)B));
         }else if (A->getType() == RECT && B->getType() == ARENA){
@@ -253,17 +321,17 @@ public:
         }else if (A->getType() == CIRCLE && B->getType() == ARENA){
             return (collide_arena_circle((Arena*)B,(Circle*)A));
 
-        // CIRCLE TO CIRCLE
+        // Kolize mezi dvěma kruhy.
         }else if (A->getType() == CIRCLE && B->getType() == CIRCLE){
             return (collide_circle_circle((Circle*)A,(Circle*)B));
 
-        // RECT CIRCLE
+        // Kolize mezi kruhem a obdélníkem.
         }else if (A->getType() == CIRCLE && B->getType() == RECT){
             return (collide_rect_circle((Circle*)A,(Rect*)B));
         }else if (A->getType() == RECT && B->getType() == CIRCLE){
             return (collide_rect_circle((Circle*)B,(Rect*)A));
 
-        // RECT RECT
+        // Kolize mezi dvěma obdélníky.
         }else if (A->getType() == RECT && B->getType() == RECT){
             return (collide_rect_rect((Rect*)A,(Rect*)B));
         }
