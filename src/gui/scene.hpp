@@ -20,7 +20,7 @@ enum PickingCursor{
     SELECTING,
     DELETING
 };
-
+/// Scene : je objekt scény která je v hlavním okně, obsahuje všechny objekty jako boxy / roboty a zařizuje obstarávání klikání do scény
 class Scene :public QGraphicsScene{ 
 Q_OBJECT
     PropertyPicker *picker;

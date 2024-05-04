@@ -46,8 +46,9 @@ protected:
 
         #if DEBUG_DAW
         body.print();
-        radar.print();
         #endif
+        radar.print();
+        
 
         if(ColisionAdministrator::get_instance().collide(this)){
             this->position = recover;
