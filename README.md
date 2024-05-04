@@ -2,20 +2,22 @@
 
 ## Kompilace
 
-Program se kompiluje pomocí příkazu
+Program se kompiluje pomocí příkazu specifikovaných v zadání.
 
-    make
+Ke zkompilování programu použijte:
 
-Ovšem při prvním stažením nebo velkých změnách (hlavně v signálech) je soubor make potřeba regenerovat pomocí příkazu
+    make 
 
-    qmake -makefile
+K vytvoření dokumentace použijte:
 
-také při přidávání h souborů musí být přidány do souboru main.pro a znovu spouštěný tento příkaz
+    make doxygen
 
+Ta se vygeneruje do složky docs/html
+Ve složce docs/doxygen-awesome-css jsou styli které zvyšují přehlednost dokumentace
 
-## implementovaná funkcionalita
+## Implementovaná funkcionalita
 
-### plně inplementované
+### Plně inplementované
 - přidávání objektů do scény
 - odebírání objektů ve scéně
 - ovládání simulace
@@ -25,11 +27,25 @@ také při přidávání h souborů musí být přidány do souboru main.pro a z
 - kolize a otáčení robotů
 - nastavování parametrů robotů při přidávání do scény
 
-### neinplementované
+### Neinplementované
 - editace již existujících objektů
 - odstranení všech objektů ve scéně tlačítkem (lze obejít načtením prázdného souboru)
 
 
+
+## Rozdělení projektu
+Projekt jsme inplementovali společně proto je tešší rozdelit kdo co přesně dělal. Ovšem projekt je rozdělený do dvou částí a každný měl zodpovědnost za svoji.
+
+- GUI (složka gui) byla zodpovědností xgross13
+- Simulace (složka sim) byla zodpovědností xfolty21
+- Mediator (složka link) byla zodpovědností xgross13
+
+
+## Návrh projektu
+
+Projekt obsahuje 2 části GUI objekt a SIMULACE objekt. \
+Komunikaci mezi objěkty zařizuje objekt **mediator** který je singletronem obsahující metody k odebírání notifikací a notifikování odběratelů. 
+Je tedy možné si gui s mediatorem přidat do vlastního projektu a používat gui nezávysle na simulaci. A to platí i pro simulaci.
 
 
 
@@ -39,13 +55,6 @@ V gui upravujeme scénu myší. ve spodní části si nastajeme co kliknutí my�
 na pravé části okna je seznam objektů které se ve scéně objevují. odsud můžeme oběkty odstraňovat a ovladatelné boty ovládat.
 
 //?***todo add image***?//
-
-
-## Návrh projektu
-
-Projekt obsahuje 2 části GUI objekt a SIMULACE objekt. \
-Komunikaci mezi objěkty zařizuje objekt **mediator** který je singletronem obsahující metody k odebírání notifikací a ntifikování odběratelů. 
-Je tedy možné si gui s mediatorem přidat do vlastního projektu a používat gui nezávysle na simulaci. A to platí i pro simulaci.
 
 
 ## Načítání/Ukládání do souboru
@@ -59,12 +68,3 @@ Data jsou ukládána ve formátu:
 
 Kde X a Y jsou souřadnice a R je rotace. 
 //?** TODO not done yet ?**//
-
-## Generace Doxy Dokumentace
-Pro generování dokumentace přejděte do složky docs a použijte příkaz 
-
-    doxygen Doxyfile
-
-Ten vygeneruje složku html ve které se nachází dokumentace
-
-## Komunikace mediatorem
