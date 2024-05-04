@@ -1,16 +1,34 @@
+/*********************************************************************
+ * @file MAN_Bot.hpp
+ * @author Tomáš Foltyn (xfolty21)
+ *
+ * @brief Definuje třídu AIBot, která je typem bota ovládaného uživatelem.
+ *********************************************************************/
+
 #include <QObject>
 #include "bot.hpp"
 #include "../link/mediator.hpp"
 
 #pragma once
 
+/**
+ * @class MANBot
+ * @brief Bot ovládaný uživatelem.
+ */
 class MANBot : public Bot{
 Q_OBJECT
 private:
+    /// Směr rotace (vlevo, vpravo).
     bool rotation_direction = false;
+    /// Stav robota.
     RoboState state = STOPED;
     
 public slots:
+    /**
+     * @brief Provádí příkazy pro robota.
+     * @param id ID robota.
+     * @param command Příkaz pro robota.
+     */
     void controll(int id, ControllComand command){
         if(id != this->id){ return; };
 
@@ -43,6 +61,13 @@ public slots:
     }
 
 public:
+    /**
+     * @brief Konstruktor třídy MANBot.
+     * @param id ID robota.
+     * @param position Pozice robota.
+     * @param rotation Rotace robota.
+     * @param view Dohled robota.
+     */
     MANBot(int id, Point position, int rotation, int view) : Bot(id,position,rotation,view){
         type = MAN_ROBOT;
         Mediator::get_instance().notify_forvarded_registartion(MAN_ROBOT ,id ,position.x ,position.y ,rotation );
@@ -52,6 +77,9 @@ public:
 
     };
 
+    /**
+     * @brief Aktualizuje stav robota.
+     */
     void update() override {
         switch (state) {
 
@@ -69,11 +97,9 @@ public:
             break;
         case COLIDED:
         case STOPED:
-            /* code */
             break;
         }
 
-        //todo
     };
 
 };

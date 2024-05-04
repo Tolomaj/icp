@@ -1,17 +1,24 @@
+/*********************************************************************
+ * @file collision_administrator.cpp
+ * @author Tomáš Foltyn (xfolty21)
+ *
+ * @brief Implementace třídy ColisionAdministrator, která se stará o detekci kolizí.
+ *********************************************************************/
+
 #include "collision_administrator.hpp"
 #include "bot.hpp"
 
 using namespace std;
 
-    bool ColisionAdministrator::collide(int id,Bot * object){
+    bool ColisionAdministrator::collide(Bot * object){
         qDebug("co to je ");
 
         for (auto & element : list) {
-            if(element->get_id() == id){
+            if(element->get_id() == object->get_id()){
                 continue;
             }
 
-            if( engine.collide(object->get_colider(),element->get_colider()) || engine.collide(object->get_radar(),element->get_colider()) ){
+            if( CollisionEngine::does_collide(object->get_colider(),element->get_colider()) || CollisionEngine::does_collide(object->get_radar(),element->get_colider()) ){
                 #if DEBUG_DAW
                 element->get_colider()->print();
                 #endif
@@ -19,11 +26,11 @@ using namespace std;
             };
         }
         // kotrola jestli je v areně
-        if( engine.collide(object->get_radar(),&arena) ){
+        if(CollisionEngine::does_collide(object->get_radar(),&arena) ){
             return true;
         };
         // kotrola jestli je v areně
-        if( engine.collide(object->get_colider(),&arena) ){
+        if(CollisionEngine::does_collide(object->get_colider(),&arena) ){
             return true;
         };
 

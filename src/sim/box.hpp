@@ -1,3 +1,10 @@
+/*********************************************************************
+ * @file box.hpp
+ * @author Tomáš Foltyn (xfolty21)
+ *
+ * @brief Definuje třídu Box, který se dá položit do arény.
+ *********************************************************************/
+
 #include "scene_object.hpp"
 #include "collision_engine/rect.hpp"
 #include "../link/mediator.hpp"
@@ -5,10 +12,22 @@
 #pragma once
 #define PI 3.1415926535
 
+/**
+ * @class Box
+ * @brief Box, který se dá položit do arény.
+ */
 class Box : public SceneObject{
 private:
+    /// Kolizní objekt boxu.
     Rect rect;
 public:
+    /**
+     * @brief Konstruktor třídy Box.
+     * @param id ID boxu.
+     * @param p Pozice boxu.
+     * @param h Výška boxu.
+     * @param rotation Rotace boxu.
+     */
     Box(int id,Point p , int h,int rotation) : SceneObject(id){
         this->position = p;
         this->rotation = rotation;
@@ -29,6 +48,11 @@ public:
         #endif
 
     };
+
+    /**
+     * @brief Získává kolizní objekt boxu.
+     * @return Kolizní objekt boxu.
+     */
     Colider * get_colider() override{
         return &rect;
     };

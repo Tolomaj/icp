@@ -1,3 +1,10 @@
+/*********************************************************************
+ * @file collision_administrator.hpp
+ * @author Tomáš Foltyn (xfolty21)
+ *
+ * @brief Definuje třídu ColisionAdministrator, která spravuje kolize.
+ *********************************************************************/
+
 #include <QObject>
 #include <vector>
 #include "scene_object.hpp"
@@ -8,15 +15,21 @@ class Bot;
 #pragma once
 using namespace std;
 
+/**
+ * @class ColisionAdministrator
+ * @brief Spravuje kolize mezi objekty.
+ * 
+ * Udržuje seznam všech kozovatelných objektů. Umožňuje zaregistrovat nový objekt a zjistit, zda došlo ke kolizi s jiným objektem.
+ */
 class ColisionAdministrator : public QObject {
 Q_OBJECT
-    CollisionEngine engine = CollisionEngine();
+    /// Seznam všech objektů.
     vector<SceneObject*> list;
     Arena arena = Arena(ARENA_SIZE_X,ARENA_SIZE_Y);
 
 public:
 
-    // disable copy/move -- this is a Singleton
+    /// Zakáže kopírování a přesouvání -- třída je Jedináček.
     ColisionAdministrator(const ColisionAdministrator&) = delete;
     ColisionAdministrator(ColisionAdministrator&&) = delete;
     ColisionAdministrator& operator=(const ColisionAdministrator&) = delete;
@@ -28,14 +41,23 @@ public:
         this->disconnect();
     };;
         
+    /**
+     * @brief Získává instanci třídy.
+     * @return Instance třídy.
+     */
     static ColisionAdministrator &get_instance() {
         static ColisionAdministrator instance;
         return instance;
     }
 
+    /**
+     * @brief Registruje nový objekt.
+     * @param object Objekt, který se má zaregistrovat.
+     */
     void registerObject(SceneObject * object){
         for(SceneObject * u : list) {
             if(u->get_id() == object->get_id()){
+                qDebug("nelze pridat");
                 return; // id already used
             }
         }
@@ -43,11 +65,17 @@ public:
         list.push_back(object);
     }
 
-    SceneObject * unregisterObject(int id, bool all_deleter = false){
+    /**
+     * @brief Odregistruje objekt.
+     * @param id Id objektu, který se má odregistrovat. Pokud je ALL, odregistruje všechny objekty.
+     * @param delete_all Pokud je true, dealokuje všechny objekty.
+     * @return Odregistrovaný objekt.
+     */
+    SceneObject * unregisterObject(int id, bool delete_all = false){
         SceneObject * returnVal = nullptr;
-        list.erase(remove_if(begin(list), end(list), [id,&returnVal,all_deleter](SceneObject * u){
+        list.erase(remove_if(begin(list), end(list), [id,&returnVal,delete_all](SceneObject * u){
             if(id == ALL){
-                if(all_deleter){
+                if(delete_all){
                     delete u;
                 }
                 return true;
@@ -58,9 +86,13 @@ public:
             }
             return false;
         }), end(list));
-        return nullptr;
+        return returnVal;
     }
 
-    bool collide(int id,Bot * object);
-
+    /**
+     * @brief Zjistí, zda došlo ke kolizi s jiným objektem.
+     * @param object Bot, který se má testovat.
+     * @return True, pokud došlo ke kolizi.
+     */
+    bool collide(Bot * object);
 };
