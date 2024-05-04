@@ -15,7 +15,7 @@
 
 #pragma once
 
-/// objekt entity ve scéně
+/// SceneEntity : objekt entity ve scéně
 class SceneEntity : public QObject {
 Q_OBJECT
 protected:

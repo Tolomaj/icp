@@ -10,7 +10,7 @@
 
 #pragma once
 
-///objekt posouvátka které má vedle sebe jméno
+/// SignedSlider : objekt posouvátka které má vedle sebe jméno
 class SignedSlider :public QWidget{ 
 Q_OBJECT
     /// hodnota na kterou je posouvátko nastaveno

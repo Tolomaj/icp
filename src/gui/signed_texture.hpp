@@ -8,7 +8,7 @@
 
 #include "libs.h"
 
-/// objekt který přidává k textury id aby bylo jednodušší zjisti na co se ve scéně kliknulo
+/// SignedTexture : objekt který přidává k textury id aby bylo jednodušší zjisti na co se ve scéně kliknulo
 class SignedTexture : public QGraphicsPixmapItem {
 
 protected:
