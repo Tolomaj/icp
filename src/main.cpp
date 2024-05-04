@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
    new GUI_Window(); // objekt který se stará o gui
 
-   #ifdef DEBUG_SAY
+   #if DEBUG_SAY
    new Test_Probe(); // tento objekt monitoruje eventy střídané mezi GUI a simulace
    #endif
    

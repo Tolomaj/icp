@@ -49,7 +49,12 @@ public:
      */
     void registerObject(SceneObject * object){
         for(SceneObject * u : list) {
-            if(u->get_id() == object->get_id()){ qDebug("nelze pridat"); return; } // id already used
+            if(u->get_id() == object->get_id()){ 
+                #if DEBUG_SAY
+                qDebug("nelze pridat"); 
+                #endif
+                return; 
+            } // id already used
         }
         list.push_back(object);
     }
@@ -105,6 +110,8 @@ public:
      */
     bool load(std::string path){
         Mediator::get_instance().notify_simulation_controll(STOP);
+        Mediator::get_instance().notify_DBG_draw_line(CLEAR_LINES);
+        
         ifstream inputFile(path); 
         if(inputFile.fail()){
             Mediator::get_instance().notify_error_message(QString("Nemohu načíst soubor"));

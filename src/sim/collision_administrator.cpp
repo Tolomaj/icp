@@ -11,7 +11,6 @@
 using namespace std;
 
     bool ColisionAdministrator::collide(Bot * object){
-        qDebug("co to je ");
 
         for (auto & element : list) {
             if(element->get_id() == object->get_id()){

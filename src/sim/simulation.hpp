@@ -52,7 +52,9 @@ private slots:
      * @brief Aktualizuje všechny boty.
      */
     void tick(){
+        #if DEBUG_SAY
         qDebug("this is tick");
+        #endif
         Mediator::get_instance().notify_DBG_draw_line(CLEAR_LINES);
 
         for (auto & element : list) {

@@ -13,6 +13,26 @@ Ovšem při prvním stažením nebo velkých změnách (hlavně v signálech) je
 také při přidávání h souborů musí být přidány do souboru main.pro a znovu spouštěný tento příkaz
 
 
+## implementovaná funkcionalita
+
+### plně inplementované
+- přidávání objektů do scény
+- odebírání objektů ve scéně
+- ovládání simulace
+- načítání a ukládání scén
+- označení robotů pro přehledné sledování
+- ovládání ovladatelných robotů ze seznamu objektů
+- kolize a otáčení robotů
+- nastavování parametrů robotů při přidávání do scény
+
+### neinplementované
+- editace již existujících objektů
+- odstranení všech objektů ve scéně tlačítkem (lze obejít načtením prázdného souboru)
+
+
+
+
+
 ## GUI a ovládací prvky programu
 
 V gui upravujeme scénu myší. ve spodní části si nastajeme co kliknutí myši udělá (vkládání objektů nebo jejich odebírání).
@@ -40,8 +60,6 @@ Data jsou ukládána ve formátu:
 Kde X a Y jsou souřadnice a R je rotace. 
 //?** TODO not done yet ?**//
 
-## Komunikace mediatorem
-
 ## Generace Doxy Dokumentace
 Pro generování dokumentace přejděte do složky docs a použijte příkaz 
 
@@ -49,16 +67,4 @@ Pro generování dokumentace přejděte do složky docs a použijte příkaz
 
 Ten vygeneruje složku html ve které se nachází dokumentace
 
-
-## Popis souborů
-
-|      soubor      |           popis obsahu souboru                                                                |
-|------------------|-----------------------------------------------------------------------------------------------|
-|simu_info.hpp     | nemnné nastavení simulace jako jsou velikost arény nebo velikosti objektů                     |
-|mediator.hpp      | objekt který je komunikačním rozhraním mezi QUI a SIMULACÍ *(více v sekci Návrh Projektu)*    |
-|Testing_object.h  | objekt naslouchající a vypisující konverzaci mezi gui a simulací                              |
-|simulation.hpp    | object provádějící simulaci                                                                   |
-|sim_data.hpp      | drží informace o všech simulovanýcho objektech, také stará se o načítání a ukládání do souboru|
-|focus_colector.hpp| obsahuje singletron přez který se notifikuje který objekt byl vybrán pro gui                  |
-|libs.hpp          | obsahuje všechny použité QT knihovny                                                          |
-//?***todo add other files***?//
+## Komunikace mediatorem

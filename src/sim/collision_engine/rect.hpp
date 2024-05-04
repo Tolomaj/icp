@@ -71,7 +71,6 @@ public:
         this->type = RECT;
         this->p_a = a;
         this->p_b = b;
-        qDebug() << "actual width of beam: " << h;
         lineMultipliator = h/(sqrt((a.y-b.y)*(a.y-b.y)+(a.x-b.x)*(a.x-b.x)));
 
     };

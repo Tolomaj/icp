@@ -336,7 +336,10 @@ public:
             return (collide_rect_rect((Rect*)A,(Rect*)B));
         }
 
+        #if DEBUG_SAY
         qDebug() << "unknown colision pair!" << A->getType() << " - " << B->getType();
+        #endif
+        
         return false;
     };
 

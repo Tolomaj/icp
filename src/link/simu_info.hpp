@@ -15,5 +15,6 @@
 #define ARENA_SIZE_X 1000
 #define ARENA_SIZE_Y 1000
 
+/// makra pro debugování
 #define DEBUG_DAW false
-#define DEBUG_SAY true
+#define DEBUG_SAY false
