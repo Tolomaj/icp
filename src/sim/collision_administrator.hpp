@@ -8,6 +8,7 @@
 #include <QObject>
 #include <vector>
 #include "scene_object.hpp"
+#include "box.hpp"
 #include "collision_engine/collision_engine.hpp"
 
 class Bot;

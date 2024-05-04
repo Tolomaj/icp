@@ -18,7 +18,9 @@ using namespace std;
                 continue;
             }
 
-            if( CollisionEngine::does_collide(object->get_colider(),element->get_colider()) || CollisionEngine::does_collide(object->get_radar(),element->get_colider()) ){
+            // kontrola se botovo tělo s jiným objektem, který není Box
+            if((dynamic_cast<Box*>(element) == nullptr && CollisionEngine::does_collide(object->get_colider(),element->get_colider())) ||
+                CollisionEngine::does_collide(object->get_radar(),element->get_colider()) ){
                 #if DEBUG_DAW
                 element->get_colider()->print();
                 #endif
