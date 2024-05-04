@@ -189,7 +189,7 @@ public:
             switch (u->get_type()){
             case AI_ROBOT:
                 myfile << "AI_BOT " << ((AIBot*)u)->get_position().x << " " << ((AIBot*)u)->get_position().y << " "
-                       << ((AIBot*)u)->get_rotation() << " " << ((AIBot*)u)->get_view() << " " << ((AIBot*)u)->get_collide_rotation_angle() << " "
+                       << ((AIBot*)u)->get_rotation() << " " << ((AIBot*)u)->get_collide_rotation_angle() << " " << ((AIBot*)u)->get_view() << " "
                        << (((AIBot*)u)->get_rotation_direction() ? "RIGHT" : "LEFT")<< endl;
                 break;
             case MAN_ROBOT:

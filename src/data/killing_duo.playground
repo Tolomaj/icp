@@ -4,7 +4,7 @@
 #BOX {X} {Y} {ROTATION}
 # a samosebou řádek začínající # je ignorovaný, stejně jako řádek prázdný
 
-AI_BOT 437 508 0 50 182 RIGHT
-AI_BOT 584 510 181 50 182 RIGHT
-BOX 753 507 0
-BOX 258 505 0
+AI_BOT 450 500 0 180 20 RIGHT
+AI_BOT 550 500 180 180 20 LEFT
+BOX 700 500 0
+BOX 300 500 0
