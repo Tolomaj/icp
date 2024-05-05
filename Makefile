@@ -23,6 +23,7 @@ pack:
 		Makefile \
 		Doxyfile \
 		README.txt \
+		README.md \
 		diagrams.pdf \
 		assets/ \
 		src/data/ \
