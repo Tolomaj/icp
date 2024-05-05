@@ -13,7 +13,8 @@ K vytvoření dokumentace použijte:
     make doxygen
 
 Ta se vygeneruje do složky docs/html
-Ve složce docs/doxygen-awesome-css jsou styli které zvyšují přehlednost dokumentace
+Ve složce docs/doxygen-awesome-css jsou styli které zvyšují přehlednost dokumentace 
+Jedná se o [repozitář](https://github.com/jothepro/doxygen-awesome-css.git) kvuli omezení velikosti ovšem je ořezaný o dokumentaci a další věci nesouvisející s vzhledem
 
 ## Implementovaná funkcionalita
 
