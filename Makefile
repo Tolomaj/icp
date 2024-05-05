@@ -33,6 +33,7 @@ pack:
 		src/main.cpp \
 		src/main.pro \
 		src/README.md \
+		src/README.txt \
 		examples/ \
 		doc/doxygen-awesome-css/120 \
 		doc/doxygen-awesome-css/LICENSE \
