@@ -1,4 +1,4 @@
-## ICP projekt **simulace robotů**
+## ICP projekt simulace robotů
 
 ## Kompilace
 
