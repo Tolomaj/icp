@@ -29,12 +29,11 @@ Ve složce docs/doxygen-awesome-css jsou styli které zvyšují přehlednost dok
 
 ### Neinplementované
 - editace již existujících objektů
-- odstranení všech objektů ve scéně tlačítkem (lze obejít načtením prázdného souboru)
-
+- odstranění všech objektů ve scéně tlačítkem (lze obejít načtením prázdného souboru)
 
 
 ## Rozdělení projektu
-Projekt jsme inplementovali společně proto je tešší rozdelit kdo co přesně dělal. Ovšem projekt je rozdělený do dvou částí a každný měl zodpovědnost za svoji.
+Projekt jsme inplementovali společně proto je tešší rozdělit kdo co přesně dělal. Ovšem projekt je rozdělený do dvou částí a každý měl zodpovědnost za svoji.
 
 - GUI (složka gui) byla zodpovědností xgross13
 - Simulace (složka sim) byla zodpovědností xfolty21
@@ -44,17 +43,14 @@ Projekt jsme inplementovali společně proto je tešší rozdelit kdo co přesn�
 ## Návrh projektu
 
 Projekt obsahuje 2 části GUI objekt a SIMULACE objekt. \
-Komunikaci mezi objěkty zařizuje objekt **mediator** který je jedináčkem obsahující metody k odebírání notifikací a notifikování odběratelů. 
+Komunikaci mezi objekty zařizuje objekt **mediator** který je jedináčkem obsahující metody k odebírání notifikací a notifikování odběratelů. 
 Je tedy možné si gui s mediatorem přidat do vlastního projektu a používat gui nezávysle na simulaci. A to platí i pro simulaci.
-
 
 
 ## GUI a ovládací prvky programu
 
-V gui upravujeme scénu myší. ve spodní části si nastajeme co kliknutí myši udělá (vkládání objektů nebo jejich odebírání).
-na pravé části okna je seznam objektů které se ve scéně objevují. odsud můžeme oběkty odstraňovat a ovladatelné boty ovládat.
-
-//?***todo add image***?//
+V gui upravujeme scénu myší. Ve spodní části si nastavujeme co kliknutí myši udělá (vkládání objektů nebo jejich odebírání).
+na pravé části okna je seznam objektů které se ve scéně objevují. Odsud můžeme objekty odstraňovat a ovladatelné boty ovládat.
 
 
 ## Načítání/Ukládání do souboru
@@ -64,5 +60,3 @@ Data jsou ukládána ve formátu:
     AI_BOT {X} {Y} {ROTATION} {SENCE_LENGHT} {COLIDE_ROTATION} {ROTATION_DIRECTION}
     MAN_BOT {X} {Y} {ROTATION} {SENCE_LENGHT}
     BOX {X} {Y} {ROTATION}
-
-Kde X a Y jsou souřadnice. 
