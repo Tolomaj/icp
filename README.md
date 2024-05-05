@@ -60,3 +60,13 @@ Data jsou ukládána ve formátu:
     AI_BOT {X} {Y} {ROTATION} {SENCE_LENGHT} {COLIDE_ROTATION} {ROTATION_DIRECTION}
     MAN_BOT {X} {Y} {ROTATION} {SENCE_LENGHT}
     BOX {X} {Y} {ROTATION}
+
+
+## použité návrhové vzory.
+
+Objekt mediatoru používá **singleton** v kombinaci s **mediatorem**. Singleton dává všem objektům přístup k tomuto objektu na komunikaci mezi gui a simulací. A mediátorem je protože zajištuje komunikaci, jinou funkci neplní.
+
+Objekt SceneResources je podle návrhového vzoru **Flywheight** a drží v sobě načtené textury použité ve scéně. To je dobré protože program konzumuje méně paměti.
+Ikony tlačítek jsem se rozhodl z časových důvodů neimplementovat touto cestou.
+
+**Template Method** je použitý v simulaci pro objekt Bot ten má metodu update která je pro robota ovládaného AI a člověkem jinak implementována ale volána jednotně.
