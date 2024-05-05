@@ -44,7 +44,7 @@ Projekt jsme inplementovali společně proto je tešší rozdelit kdo co přesn�
 ## Návrh projektu
 
 Projekt obsahuje 2 části GUI objekt a SIMULACE objekt. \
-Komunikaci mezi objěkty zařizuje objekt **mediator** který je singletronem obsahující metody k odebírání notifikací a notifikování odběratelů. 
+Komunikaci mezi objěkty zařizuje objekt **mediator** který je jedináčkem obsahující metody k odebírání notifikací a notifikování odběratelů. 
 Je tedy možné si gui s mediatorem přidat do vlastního projektu a používat gui nezávysle na simulaci. A to platí i pro simulaci.
 
 
@@ -61,10 +61,8 @@ na pravé části okna je seznam objektů které se ve scéně objevují. odsud 
 Načítání i ukládání lze zvolit v GUI to ovšem zašle pouze signál objektu dat simulace který soubor načte popřípadě uloží.
 Data jsou ukládána ve formátu:
 
-    BOT {X} {Y} {R} 
-    BOX {X} {Y}
-    AI {X} {Y} {R}
-    BOX {X} {Y}
+    AI_BOT {X} {Y} {ROTATION} {SENCE_LENGHT} {COLIDE_ROTATION} {ROTATION_DIRECTION}
+    MAN_BOT {X} {Y} {ROTATION} {SENCE_LENGHT}
+    BOX {X} {Y} {ROTATION}
 
-Kde X a Y jsou souřadnice a R je rotace. 
-//?** TODO not done yet ?**//
+Kde X a Y jsou souřadnice. 
