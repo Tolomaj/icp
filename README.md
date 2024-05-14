@@ -1,6 +1,15 @@
 ## ICP projekt simulace robotů
 
-## Kompilace
+![Náhled](doc/Overwiew.png)
+
+## Kompilace & stažení
+
+Stažení repozitáře
+
+    git clone https://github.com/Tolomaj/icp.git
+    cd icp
+    git submodule init
+
 
 Program se kompiluje pomocí příkazu specifikovaných v zadání.
 
@@ -15,6 +24,14 @@ K vytvoření dokumentace použijte:
 Ta se vygeneruje do složky docs/html
 Ve složce docs/doxygen-awesome-css jsou styli které zvyšují přehlednost dokumentace 
 Jedná se o [repozitář](https://github.com/jothepro/doxygen-awesome-css.git) kvuli omezení velikosti ovšem je ořezaný o dokumentaci a další věci nesouvisející s vzhledem
+
+## Závislosti
+### Příkazy
+- doqigen
+- qmake
+### Knihovny
+- Qt knihovny
+
 
 ## Implementovaná funkcionalita
 
@@ -63,7 +80,7 @@ Data jsou ukládána ve formátu:
     BOX {X} {Y} {ROTATION}
 
 
-## použité návrhové vzory.
+## Použité návrhové vzory.
 
 Objekt mediatoru používá **singleton** v kombinaci s **mediatorem**. Singleton dává všem objektům přístup k tomuto objektu na komunikaci mezi gui a simulací. A mediátorem je protože zajištuje komunikaci, jinou funkci neplní.
 
