@@ -2,20 +2,23 @@
 
 ![Náhled](doc/Overwiew.png)
 
-## Kompilace & stažení
 
-Stažení repozitáře
+## Stažení repozitáře
+Stáhne reopzitář a stáhne submodul pro dokumetaci:
 
     git clone https://github.com/Tolomaj/icp.git
     cd icp
-    git submodule init
+    git submodule update --init --recursive
 
+## Kompilace
 
 Program se kompiluje pomocí příkazu specifikovaných v zadání.
 
 Ke zkompilování programu použijte:
 
     make 
+
+Tento příkaz skompiluje program do ./icp24-robot-sim (spustitelný soubor)
 
 K vytvoření dokumentace použijte:
 
